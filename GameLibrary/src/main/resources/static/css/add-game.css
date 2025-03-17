@@ -25,7 +25,7 @@ body {
     width: 80%;
     max-width: 1000px;
     text-align: center;
-    margin-top: -5.5em;
+    margin-top: -6em;
 }
 
 /* Заглавие */
@@ -107,10 +107,9 @@ button {
     padding: 10px 30px;
     font-size: 18px;
     font-weight: 700;
-    border-radius: 14px;
+    border-radius: 10px;
     border: none;
-    box-shadow: 0 0 5px white, 0 0 25px white;
-    width: 100%;
+    width: 23%;
     cursor: pointer;
     margin-top: 2.3em;
 }
