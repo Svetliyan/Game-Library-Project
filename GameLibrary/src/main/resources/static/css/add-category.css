@@ -1,0 +1,99 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);
+    /*background: linear-gradient(245.59deg, #264d8d 0%, #1f436f 28.53%, #152a52 75.52%);*/
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 5rem;
+}
+
+.container {
+    background: #1e1e1e;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    text-align: left;
+    width: 17em;
+}
+
+label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+input {
+    width: 130%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background: white;
+    color: black;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+
+button {
+    display: inline-block;
+    color: black;
+    background: white;
+    margin-top: 1.5em;
+    padding: 7px 30px;
+    line-height: 1.4;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 14px;
+    text-transform: uppercase;
+    text-shadow: none;
+    border: none;
+    box-shadow: 0 0 5px white, 0 0 25px white;
+}
+
+button:hover {
+    box-shadow: 0 0 5px white, 0 0 25px white, 0 0 50px white, 0 0 100px white, 0 0 200px white;
+    transition: 1s;
+}
+
+.badge {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 55px;
+}

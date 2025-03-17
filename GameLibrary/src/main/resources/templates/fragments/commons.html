@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" type="image/x-icon" href="/img/icon.png">
+</head>
+<body>
+<header>
+    <a href="/" class="logo">CAO!</a>
+
+    <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li th:if="${session.user_id != null}"><a th:href="@{/store}">Store</a></li>
+        <li th:if="${session.user_id == null}"><a href="#">About</a></li>
+        <li th:if="${session.user_id != null}"><a th:href="@{/games/add}">Add Game</a></li>
+        <li th:if="${session.user_id != null}"><a th:href="@{/categories/add}">Add Category</a></li>
+        <li th:if="${session.user_id == null}"><a th:href="@{/login}">Login</a></li>
+        <li th:if="${session.user_id == null}"><a th:href="@{/register}">Create Account</a></li>
+        <li th:if="${session.user_id != null}"><a href="#">Library</a></li>
+        <li th:if="${session.user_id != null}"><a href="#">Profile</a></li>
+        <li th:if="${session.user_id != null}"><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+</header>
+</body>
+</html>

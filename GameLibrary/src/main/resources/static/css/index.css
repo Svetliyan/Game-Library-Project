@@ -1,0 +1,120 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Carlito', sans-serif;
+    text-decoration: none;
+}
+
+header {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 9%;
+    background: transparent;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);
+    /*background: linear-gradient(245.59deg, #264d8d 0%, #1f436f 28.53%, #152a52 75.52%);*/
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 5rem;
+}
+
+.logo {
+    font-family: "Anton", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 70px;
+    color: white;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+}
+
+.nav a {
+    color: white;
+    margin-left: 60px;
+    font-size: 15px;
+    font-weight: 900;
+    border-bottom: 2px solid transparent;
+    transition: all .55s ease;
+    text-transform: uppercase;
+}
+
+.nav a:hover {
+    border-bottom: 2px solid white;
+}
+
+.hero, form {
+    position: relative;
+    border-radius: 10px;
+    margin-top: 12em;
+    /*color: #5a6268;*/
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 3em;
+    background-color: rgb(84 91 98 / 10%);
+    max-width: 1140px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 4px 16px black;
+    z-index: 1;
+}
+
+.hero h4, h1, p, .form-group{
+    padding-bottom: 0.5em;
+}
+
+.hero p {
+    font-size: 25px;
+    padding-bottom: 2em;
+}
+
+.hero h1 {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 70px;
+}
+
+/* Labels */
+label {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 3px;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.hero-text a {
+    display: inline-block;
+    color: black;
+    background: white;
+    border-bottom: 1px solid transparent;
+    padding: 12px 40px;
+    line-height: 1.4;
+    font-size: 18px;
+    border-radius: 14px;
+    text-transform: uppercase;
+    text-shadow: none;
+    box-shadow: 0 0 5px white, 0 0 25px white;
+    font-weight: 600;
+}
+
+.hero-text a:hover {
+    box-shadow: 0 0 5px white, 0 0 25px white, 0 0 50px white, 0 0 100px white, 0 0 200px white;
+    transition: 1s;
+}

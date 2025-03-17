@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Your Game</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/add-game.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+
+<header th:replace="fragments/commons::header"></header>
+
+<div class="container">
+    <form class="register-form" th:method="POST" th:action="@{/games}" th:object="${createGameRequest}">
+
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Category</span></h1>
+
+        <div class="form-columns">
+
+            <!-- Лява колона -->
+            <div class="left-column">
+                <div class="form-group">
+                    <label for="name">Title</label>
+                    <input type="text" class="form-control" id="name" name="name" th:field="*{title}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select class="browser-default custom-select" id="category_id" name="category_id" th:field="*{category_id}">
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="storage">Storage (GB)</label>
+                    <input type="text" class="form-control" id="storage" name="storage" th:field="*{storage}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="img_url">Game Image (URL)</label>
+                    <input type="text" class="form-control" id="img_url" name="img_url" th:field="*{img_url}"/>
+                </div>
+            </div>
+
+            <!-- Дясна колона (само Description) -->
+            <div class="right-column">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" th:field="*{description}"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-info mb-3">Add Game</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to CAO!</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" type="image/x-icon" href="/img/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="fragments/commons::header"></header>
+<header th:replace="fragments/commons::head"></header>
+
+    <main class="hero">
+        <div class="hero-text">
+            <h1>A New World of Gaming!</h1>
+            <p>Play the latest releases and upload your own creations on our all-new platform. <br> Start playing today and shape the future of gaming!</p>
+            <a th:href="@{/register}">Get Started</a>
+        </div>
+    </main>
+
+</body>
+</html>
