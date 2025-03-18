@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>CAO!</title>
@@ -15,11 +15,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
-
 <head th:replace="fragments/commons::head"></head>
+
 <body>
-
 <header th:replace="fragments/commons::header"></header>
-
+<main>
+    <div class="all-games">
+    <div class="games-container">
+        <div class="game-card" th:each="game : ${user.games}">
+            <img th:src="${game.img_url}" alt="Game Image">
+        </div>
+    </div>
+    </div>
+</main>
 </body>
 </html>
