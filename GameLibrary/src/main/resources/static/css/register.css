@@ -6,16 +6,19 @@
     font-family: Arial, sans-serif;
 }
 
+nav {
+    background: #171d25;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: auto;
-
 }
 
 body {
-    /*background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);
     /*background: linear-gradient(245.59deg, #264d8d 0%, #1f436f 28.53%, #152a52 75.52%);*/
     background-position: center;
     background-attachment: fixed;
@@ -135,4 +138,10 @@ button:hover {
     font-weight: 700;
     font-style: normal;
     font-size: 55px;
+}
+
+footer {
+    width: 100%;
+    height: 20%;
+    background: #0d1116;
 }

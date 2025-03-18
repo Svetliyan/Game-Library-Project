@@ -10,53 +10,42 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
-
-}
-
-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);
-    /*background: linear-gradient(245.59deg, #264d8d 0%, #1f436f 28.53%, #152a52 75.52%);*/
+    background: #0d1116;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    margin-bottom: 5rem;
 }
 
-.container {
-    background: #1e1e1e;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
-    width: 100%;
-    max-width: 400px;
+main {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 1rem;
+/* Заглавие */
+span {
     font-size: 24px;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 700;
+    font-style: normal;
 }
 
-.register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.badge {
+    font-size: 55px;
 }
 
+/* Форм група */
 .form-group {
-    text-align: left;
-    width: 17em;
+    text-align: center;
 }
 
 label {
     font-size: 20px;
     font-weight: bold;
+    text-align: left;
 }
 
 input {
-    width: 130%;
+    width: 100%;
     padding: 10px;
     margin-top: 5px;
     border: none;
@@ -65,34 +54,22 @@ input {
     color: black;
 }
 
-.error-message {
+small.danger {
     color: red;
-    font-size: 12px;
+    font-size: 15px;
 }
 
+/* Submit бутон */
 button {
-    display: inline-block;
-    color: black;
-    background: white;
-    margin-top: 1.5em;
-    padding: 7px 30px;
-    line-height: 1.4;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 10px;
-    text-transform: uppercase;
-    text-shadow: none;
+    background: linear-gradient(90deg, #06BFFF 0%, #2D73FF 100%);
+    border-radius: 2px;
     border: none;
-}
-
-button:hover {
-    box-shadow: 0 0 5px white, 0 0 25px white, 0 0 50px white, 0 0 100px white, 0 0 200px white;
-    transition: 1s;
-}
-
-.badge {
-    font-family: "Permanent Marker", cursive;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 55px;
+    padding: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    width: 55%;
+    margin-top: 1.5em;
 }
