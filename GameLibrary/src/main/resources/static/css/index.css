@@ -19,6 +19,10 @@ header {
     background: transparent;
 }
 
+.welcome {
+    text-align: center;
+}
+
 body {
     background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(84, 91, 98, 0.5), rgba(84, 91, 98, 0.3)), url(../img/background-1.jpg);
     /*background: linear-gradient(245.59deg, #264d8d 0%, #1f436f 28.53%, #152a52 75.52%);*/
