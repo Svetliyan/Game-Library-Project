@@ -39,4 +39,6 @@ public class Game {
 
     @ManyToOne
     private User owner;
+
+    private Boolean isVisible;
 }

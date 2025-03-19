@@ -39,4 +39,6 @@ public class CreateGameRequest {
 
     @NotNull
     private List<Category> categories = new ArrayList<Category>();
+
+    private boolean isVisible;
 }

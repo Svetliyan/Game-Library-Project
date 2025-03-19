@@ -1,5 +1,7 @@
 package app.web;
 
+import app.game.model.Game;
+import app.game.service.GameService;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.LoginRequest;
@@ -12,15 +14,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
 public class IndexController {
 
     private final UserService userService;
+    private final GameService gameService;
 
-    public IndexController(UserService userService) {
+    public IndexController(UserService userService, GameService gameService) {
         this.userService = userService;
+        this.gameService = gameService;
     }
 
     @GetMapping("/index")
@@ -78,9 +83,12 @@ public class IndexController {
         UUID userId = (UUID) session.getAttribute("user_id");
         User user = userService.getById(userId);
 
+        List<Game> allSystemGames = gameService.getAllGames();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("store");
         modelAndView.addObject("user", user);
+        modelAndView.addObject("allSystemGames", allSystemGames);
 
         return modelAndView;
     }

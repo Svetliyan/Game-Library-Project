@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,6 +44,7 @@ public class GameService {
                 .price(createGameRequest.getPrice())
                 .img_url(createGameRequest.getImg_url())
                 .owner(user)
+                .isVisible(true)
                 .category(getCategory.get())
                 .build();
 
@@ -52,5 +54,9 @@ public class GameService {
 
     public Boolean existsByTitle(String title) {
         return gameRepository.existsByTitle(title);
+    }
+
+    public List<Game> getAllGames() {
+        return gameRepository.findAll();
     }
 }
