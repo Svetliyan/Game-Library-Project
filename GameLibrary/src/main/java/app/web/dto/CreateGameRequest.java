@@ -22,7 +22,7 @@ public class CreateGameRequest {
     private String title;
 
     @NotNull
-    @Size(min = 50, message = "Description must be over 50 characters!")
+    @Size(min = 50, max = 20000, message = "Description must be over 50 characters!")
     private String description;
 
     @NotNull

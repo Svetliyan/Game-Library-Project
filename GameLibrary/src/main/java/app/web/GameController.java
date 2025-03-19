@@ -60,11 +60,11 @@ public class GameController {
         User user = userService.getById(userId);
 
         if (bindingResult.hasErrors()) {
-            return "/store";
+            return "/add-game";
         }
 
         gameService.createGame(createGameRequest, user);
 
-        return "redirect:/index";
+        return "redirect:/store";
     }
 }
