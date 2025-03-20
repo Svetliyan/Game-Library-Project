@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${game.title}"></title>
     <link rel="stylesheet" href="/css/games.css">
     <link rel="stylesheet" href="/css/index.css">
 
@@ -22,26 +22,60 @@
 <header th:replace="fragments/commons::header"></header>
 
 
-<div class="container" th:method="GET" th:action="@{/game}">
+<div class="container">
     <div class="image-section">
         <button class="arrow left" onclick="prevImage()">&#10094;</button>
-        <img src="image1.jpg" class="active">
-        <img src="image2.jpg">
-        <img src="image3.jpg">
-        <img src="image4.jpg">
-        <img src="image5.jpg">
+        <img id="main-image" th:src="${game.getMainImg_url()}" class="active">
+        <div class="thumbnail-section">
+            <img th:src="${game.getFirstImage_url()}" onclick="selectImage(0)">
+            <img th:src="${game.getSecondImage_url()}" onclick="selectImage(1)">
+            <img th:src="${game.getThirdImage_url()}" onclick="selectImage(2)">
+            <img th:src="${game.getFourthImage_url()}" onclick="selectImage(3)">
+        </div>
         <button class="arrow right" onclick="nextImage()">&#10095;</button>
     </div>
     <div class="info-section">
-        <div class="game-cover"></div>
         <div class="game-title" th:text="${game.title}"></div>
         <div class="description" th:text="${game.description}"></div>
         <div class="details">
-            <strong>Genre: </strong><strong th:text="${game.getCategory().name}"></strong> <br>
-            <strong>Publisher: </strong><strong th:text="${game.owner.username}"></strong>  <br>
+            <strong>Genre: </strong><span th:text="${game.getCategory().name}"></span><br>
+            <strong>Publisher: </strong><span th:text="${game.owner.username}"></span><br>
+            <strong>Developer: </strong><span th:text="${game.owner.username}"></span><br>
+            <strong>Price: </strong><span th:text="${game.price}"></span><br>
+        </div>
+
+        <div class="purchase-section">
+            <button type="submit" class="add-to-cart">Purchase</button>
         </div>
     </div>
 </div>
 
+<script>
+    let currentImageIndex = 0;
+    const images = document.querySelectorAll(".thumbnail-section img");
+    const mainImage = document.getElementById("main-image");
+
+    function showImage(index) {
+        mainImage.src = images[index].src;
+        images.forEach((thumb, i) => {
+            thumb.classList.toggle("active", i === index);
+        });
+        currentImageIndex = index;
+    }
+
+    function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        showImage(currentImageIndex);
+    }
+
+    function prevImage() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        showImage(currentImageIndex);
+    }
+
+    function selectImage(index) {
+        showImage(index);
+    }
+</script>
 </body>
 </html>

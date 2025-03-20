@@ -45,7 +45,8 @@ h1 {
     border-radius: 1px;
     text-align: left;
     justify-content: left;
-    height: 30em;
+    height: 90%;
+    width: 100%;
 }
 
 .game-card img {

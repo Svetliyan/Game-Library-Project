@@ -34,7 +34,7 @@
         <h1>FEATURED GAMES:</h1>
     <div class="games-container">
         <div class="game-card" th:each="systemGame : ${allSystemGames}">
-            <a th:href="@{'/games/' + ${systemGame.id}}"><img th:src="${systemGame.img_url}" alt="Game Image"></a>
+            <a th:href="@{'/games/' + ${systemGame.id}}"><img th:src="${systemGame.coverImg_url}" alt="Game Image"></a>
         </div>
     </div>
     </div>

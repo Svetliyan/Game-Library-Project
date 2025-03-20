@@ -43,6 +43,7 @@ public class GameService {
                 .storage(createGameRequest.getStorage())
                 .price(createGameRequest.getPrice())
                 .coverImg_url(createGameRequest.getCoverImage_url())
+                .mainImg_url(createGameRequest.getMainImg_url())
                 .firstImage_url(createGameRequest.getFirstImage_url())
                 .secondImage_url(createGameRequest.getSecondImage_url())
                 .thirdImage_url(createGameRequest.getThirdImage_url())
