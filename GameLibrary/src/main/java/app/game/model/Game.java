@@ -32,7 +32,22 @@ public class Game {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private String img_url;
+    private String coverImg_url;
+
+    @Column(nullable = false)
+    private String mainImg_url;
+
+    @Column(nullable = false)
+    private String firstImage_url;
+
+    @Column(nullable = false)
+    private String secondImage_url;
+
+    @Column(nullable = false)
+    private String thirdImage_url;
+
+    @Column(nullable = false)
+    private String fourthImage_url;
 
     @ManyToOne //много игри ще принадлеждат на една категория.
     private Category category;

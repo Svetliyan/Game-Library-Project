@@ -1,6 +1,7 @@
 package app.web.dto;
 
 import app.category.model.Category;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -33,7 +34,27 @@ public class CreateGameRequest {
 
     @NotNull
     @URL
-    private String img_url;
+    private String coverImage_url;
+
+    @NotNull
+    @URL
+    private String mainImg_url;
+
+    @NotNull
+    @URL
+    private String firstImage_url;
+
+    @NotNull
+    @URL
+    private String secondImage_url;
+
+    @NotNull
+    @URL
+    private String thirdImage_url;
+
+    @NotNull
+    @URL
+    private String fourthImage_url;
 
     private Integer category_id;
 
