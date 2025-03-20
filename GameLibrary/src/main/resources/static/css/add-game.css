@@ -23,6 +23,10 @@ body {
     margin-top: -6em;
 }
 
+.register-form {
+    height: 50em;
+}
+
 /* Заглавие */
 h1, .badge {
     font-family: "Permanent Marker", cursive;
@@ -85,7 +89,7 @@ input, select, textarea {
 textarea {
     min-height: 200px;
     resize: none;
-    height: 178.3%;
+    height: 40%;
 }
 
 /* Submit бутон */
@@ -100,7 +104,7 @@ button {
     text-align: center;
     cursor: pointer;
     width: 20%;
-    margin-top: 1.5em;
+    margin-top: 7em;
 }
 
 /* General Styles */

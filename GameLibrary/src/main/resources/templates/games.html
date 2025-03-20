@@ -1,11 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/css/games.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
+
+<head th:replace="fragments/commons::head"></head>
+
 <body>
-<h1>Hello from games-page</h1>
+
+<header th:replace="fragments/commons::header"></header>
+
+
+<div class="container" th:method="GET" th:action="@{/game}">
+    <div class="image-section">
+        <button class="arrow left" onclick="prevImage()">&#10094;</button>
+        <img src="image1.jpg" class="active">
+        <img src="image2.jpg">
+        <img src="image3.jpg">
+        <img src="image4.jpg">
+        <img src="image5.jpg">
+        <button class="arrow right" onclick="nextImage()">&#10095;</button>
+    </div>
+    <div class="info-section">
+        <div class="game-cover"></div>
+        <div class="game-title" th:text="${game.title}"></div>
+        <div class="description" th:text="${game.description}"></div>
+        <div class="details">
+            <strong>Genre: </strong><strong th:text="${game.getCategory().name}"></strong> <br>
+            <strong>Publisher: </strong><strong th:text="${game.owner.username}"></strong>  <br>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
