@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CAO!</title>
+    <title>Welcome to CAO!</title>
 
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/store.css">
@@ -34,7 +34,7 @@
         <h1>FEATURED GAMES:</h1>
     <div class="games-container">
         <div class="game-card" th:each="systemGame : ${allSystemGames}">
-            <a href="#"><img th:src="${systemGame.img_url}" alt="Game Image"></a>
+            <a th:href="@{'/games/' + ${systemGame.id}}"><img th:src="${systemGame.img_url}" alt="Game Image"></a>
         </div>
     </div>
     </div>
