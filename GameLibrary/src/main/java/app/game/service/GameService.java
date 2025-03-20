@@ -59,4 +59,8 @@ public class GameService {
     public List<Game> getAllGames() {
         return gameRepository.findAll();
     }
+
+    public Game getById(UUID gameId) {
+        return gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game with this id [%s] does not exist.".formatted(gameId)));
+    }
 }
