@@ -5,14 +5,38 @@
     <title>Title</title>
 
     <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/store.css">
+    <link rel="stylesheet" href="/css/library.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
+
+<head th:replace="fragments/commons::head"></head>
+
 <body>
+
 <main>
+
+    <header class="menu" th:replace="fragments/commons::header"></header>
+
     <div class="all-games">
-        <h1>FEATURED GAMES:</h1>
+        <h1>LIBRARY:</h1>
         <div class="games-container">
             <div class="game-card" th:each="game : ${user.purchasedGames}">
+                <a><img th:src="${game.mainImg_url}" alt="Game Image"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="created-games" th:each="game : ${user.games}" th:if="${game.owner.id == user.id}">
+        <h1>MY GAMES:</h1>
+        <div class="games-container">
+            <div class="game-card">
                 <a><img th:src="${game.mainImg_url}" alt="Game Image"></a>
             </div>
         </div>
