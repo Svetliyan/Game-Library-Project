@@ -3,14 +3,15 @@ package app.game.service;
 import app.category.model.Category;
 import app.category.service.CategoryService;
 import app.game.model.Game;
+import app.game.model.PurchasedGame;
 import app.game.repository.GameRepository;
+import app.game.repository.PurchasedGameRepository;
 import app.user.model.User;
 import app.web.dto.CreateGameRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,11 +20,14 @@ import java.util.UUID;
 public class GameService {
     private final GameRepository gameRepository;
     private final CategoryService categoryService;
+    private final PurchasedGameRepository purchasedGameRepository;
 
     @Autowired
-    public GameService(GameRepository gameRepository, CategoryService categoryService) {
+    public GameService(GameRepository gameRepository, CategoryService categoryService,
+                       PurchasedGameRepository purchasedGameRepository) {
         this.gameRepository = gameRepository;
         this.categoryService = categoryService;
+        this.purchasedGameRepository = purchasedGameRepository;
     }
 
     public void createGame(CreateGameRequest createGameRequest, User user) {
@@ -48,6 +52,7 @@ public class GameService {
                 .secondImage_url(createGameRequest.getSecondImage_url())
                 .thirdImage_url(createGameRequest.getThirdImage_url())
                 .fourthImage_url(createGameRequest.getFourthImage_url())
+                .createdOn(LocalDateTime.now())
                 .owner(user)
                 .isVisible(true)
                 .category(getCategory.get())
@@ -56,6 +61,26 @@ public class GameService {
         gameRepository.save(game);
     }
 
+    public void purchaseGame(UUID gameId, User user) {
+
+        Game game = getById(gameId);
+
+        boolean isFavorite = user.getPurchasedGames()
+                .stream()
+                .anyMatch(fp -> fp.getTitle().equals(game.getTitle()) && fp.getOwner().equals(game.getOwner()));
+
+        if (isFavorite) {
+            return;
+        }
+
+        PurchasedGame purchasedGame = PurchasedGame.builder()
+                .title(game.getTitle())
+                .mainImg_url(game.getMainImg_url())
+                .owner(user)
+                .build();
+
+        purchasedGameRepository.save(purchasedGame);
+    }
 
     public Boolean existsByTitle(String title) {
         return gameRepository.existsByTitle(title);

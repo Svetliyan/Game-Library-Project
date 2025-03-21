@@ -13,19 +13,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class WishedGames {
+public class PurchasedGame {
     @Id()
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
-    private String img_url;
-
-    @Column(nullable = false)
-    private BigDecimal price;
+    private String mainImg_url;
 
     @ManyToOne()
     private User owner;

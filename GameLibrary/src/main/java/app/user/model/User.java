@@ -1,7 +1,7 @@
 package app.user.model;
 
 import app.game.model.Game;
-import app.game.model.WishedGames;
+import app.game.model.PurchasedGame;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,5 +34,5 @@ public class User {
     private List<Game> games;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
-    private List<WishedGames> wishedGames;
+    private List<PurchasedGame> purchasedGames;
 }

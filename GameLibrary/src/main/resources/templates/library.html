@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/store.css">
+</head>
+<body>
+<main>
+    <div class="all-games">
+        <h1>FEATURED GAMES:</h1>
+        <div class="games-container">
+            <div class="game-card" th:each="game : ${user.purchasedGames}">
+                <a><img th:src="${game.mainImg_url}" alt="Game Image"></a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

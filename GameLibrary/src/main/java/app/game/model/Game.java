@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -54,6 +55,9 @@ public class Game {
 
     @ManyToOne
     private User owner;
+
+    @Column(nullable = false)
+    private LocalDateTime createdOn;
 
     private Boolean isVisible;
 }

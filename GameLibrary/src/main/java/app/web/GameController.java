@@ -86,4 +86,26 @@ public class GameController {
 
         return modelAndView;
     }
+
+    @GetMapping("/library")
+    public ModelAndView getLibraryPage(HttpSession session) {
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("library");
+        modelAndView.addObject("user", user);
+
+        return modelAndView;
+    }
+
+    @PostMapping("/purchase/{id}")
+    public String purchaseGame(@PathVariable UUID id, HttpSession session) {
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
+
+        gameService.purchaseGame(id, user);
+
+        return "redirect:/library";
+    }
 }

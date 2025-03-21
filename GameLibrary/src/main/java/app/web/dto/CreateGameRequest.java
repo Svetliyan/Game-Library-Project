@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -57,6 +58,9 @@ public class CreateGameRequest {
     private String fourthImage_url;
 
     private Integer category_id;
+
+    @Column(nullable = false)
+    private LocalDateTime createdOn;
 
     @NotNull
     private List<Category> categories = new ArrayList<Category>();

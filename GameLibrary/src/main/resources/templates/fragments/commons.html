@@ -19,8 +19,8 @@
         <li th:if="${session.user_id != null}"><a th:href="@{/categories/add}">Add Category</a></li>
         <li th:if="${session.user_id == null}"><a th:href="@{/login}">Login</a></li>
         <li th:if="${session.user_id == null}"><a th:href="@{/register}">Create Account</a></li>
-        <li th:if="${session.user_id != null}"><a href="#">Library</a></li>
-        <li th:if="${session.user_id != null}"><a href="#">Profile</a></li>
+        <li th:if="${session.user_id != null}"><a th:href="@{library}">Library</a></li>
+        <li th:if="${session.user_id != null}"><a href="">Profile</a></li>
         <li th:if="${session.user_id != null}"><a th:href="@{/logout}">Logout</a></li>
     </ul>
 </header>

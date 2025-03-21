@@ -99,4 +99,16 @@ public class IndexController {
 
         return "redirect:/index";
     }
+
+    @GetMapping("/library")
+    public ModelAndView getLibraryPage(HttpSession session) {
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("library");
+        modelAndView.addObject("user", user);
+
+        return modelAndView;
+    }
 }

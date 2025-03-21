@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="${game.title}"></title>
     <link rel="stylesheet" href="/css/games.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/nav.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
-
-<head th:replace="fragments/commons::head"></head>
 
 <body>
 
@@ -27,10 +25,10 @@
         <button class="arrow left" onclick="prevImage()">&#10094;</button>
         <img id="main-image" th:src="${game.getMainImg_url()}" class="active">
         <div class="thumbnail-section">
-            <img th:src="${game.getFirstImage_url()}" onclick="selectImage(0)">
-            <img th:src="${game.getSecondImage_url()}" onclick="selectImage(1)">
-            <img th:src="${game.getThirdImage_url()}" onclick="selectImage(2)">
-            <img th:src="${game.getFourthImage_url()}" onclick="selectImage(3)">
+            <img th:src="${game.getFirstImage_url()}" onclick="selectImage(1)">
+            <img th:src="${game.getSecondImage_url()}" onclick="selectImage(2)">
+            <img th:src="${game.getThirdImage_url()}" onclick="selectImage(3)">
+            <img th:src="${game.getFourthImage_url()}" onclick="selectImage(4)">
         </div>
         <button class="arrow right" onclick="nextImage()">&#10095;</button>
     </div>
@@ -40,18 +38,18 @@
         <div class="details">
             <strong>Genre: </strong><span th:text="${game.getCategory().name}"></span><br>
             <strong>Publisher: </strong><span th:text="${game.owner.username}"></span><br>
-            <strong>Developer: </strong><span th:text="${game.owner.username}"></span><br>
+            <strong>Released: </strong><span th:text="${game.createdOn}"></span><br>
             <strong>Price: </strong><span th:text="${game.price}"></span><br>
         </div>
 
-        <div class="purchase-section">
-            <button type="submit" class="add-to-cart">Purchase</button>
-        </div>
+        <form th:action="@{'/games/purchase/' + ${game.getId()}}" th:method="POST" class="purchase-section">
+            <button type="submit" class="purchase">Purchase</button>
+        </form>
     </div>
 </div>
 
 <script>
-    let currentImageIndex = 0;
+    let currentImageIndex = 1;
     const images = document.querySelectorAll(".thumbnail-section img");
     const mainImage = document.getElementById("main-image");
 
@@ -71,10 +69,6 @@
     function prevImage() {
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
         showImage(currentImageIndex);
-    }
-
-    function selectImage(index) {
-        showImage(index);
     }
 </script>
 </body>
