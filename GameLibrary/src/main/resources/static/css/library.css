@@ -58,10 +58,12 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     gap: 5em;
     padding: 30px;
+    width: 95%;
 }
 
 .game-card {
     justify-content: center;
+    width: 30%;
 }
 
 .buttons {
