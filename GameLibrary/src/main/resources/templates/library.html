@@ -33,14 +33,18 @@
         </div>
     </div>
 
-    <div class="created-games" th:each="game : ${user.games}" th:if="${game.owner.id == user.id}">
+    <div class="created-games">
         <h1>MY GAMES:</h1>
         <div class="games-container">
-            <div class="game-card">
+            <div class="game-card" th:each="game : ${user.games}" th:if="${game.owner.id == user.id}">
                 <a><img th:src="${game.mainImg_url}" alt="Game Image"></a>
+                <div class="buttons">
+                    <button class="DELETE">REMOVE</button>
+                    <button class="EDIT">EDIT</button>
+                </div>
             </div>
         </div>
-    </div>
+        </div>
 </main>
 </body>
 </html>

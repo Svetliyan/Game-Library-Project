@@ -11,8 +11,8 @@
     <groupId>smart-wallet</groupId>
     <artifactId>steam</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Smart Wallet Application</name>
-    <description>Smart Wallet Application</description>
+    <name>Game Library</name>
+    <description>Game Library Project</description>
     <url/>
     <licenses>
         <license/>
