@@ -31,6 +31,17 @@ h1 {
     border-radius: 5px;
 }
 
+.all-games a {
+    width: 100%;
+}
+
+.all-games .games-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5em;
+    padding: 30px;
+}
+
 .created-games {
     width: 90%;
     height: 100%;
