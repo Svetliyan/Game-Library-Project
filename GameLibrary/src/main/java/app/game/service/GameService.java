@@ -8,6 +8,7 @@ import app.game.repository.GameRepository;
 import app.game.repository.PurchasedGameRepository;
 import app.user.model.User;
 import app.web.dto.CreateGameRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,19 +66,17 @@ public class GameService {
 
         Game game = getById(gameId);
 
-        boolean isFavorite = user.getPurchasedGames()
+        boolean isPurchased = user.getPurchasedGames()
                 .stream()
-                .anyMatch(fp -> fp.getTitle().equals(game.getTitle()) && fp.getOwner().equals(game.getOwner()));
+                .anyMatch(pg -> pg.getGame().getId().equals(game.getId())); // Проверка по ID
 
-        if (isFavorite) {
-            return;
+        if (isPurchased) {
+            return; // Вече притежава играта
         }
 
-        PurchasedGame purchasedGame = PurchasedGame.builder()
-                .title(game.getTitle())
-                .mainImg_url(game.getMainImg_url())
-                .owner(user)
-                .build();
+        PurchasedGame purchasedGame = new PurchasedGame();
+        purchasedGame.setGame(game); // Свързваме с оригиналната игра
+        purchasedGame.setOwner(user);
 
         purchasedGameRepository.save(purchasedGame);
     }
@@ -92,5 +91,10 @@ public class GameService {
 
     public Game getById(UUID gameId) {
         return gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Game with this id [%s] does not exist.".formatted(gameId)));
+    }
+
+    @Transactional
+    public void deleteById(UUID id) {
+        gameRepository.deleteById(id);
     }
 }

@@ -87,6 +87,22 @@ public class GameController {
         return modelAndView;
     }
 
+    @PostMapping("/purchase/{id}")
+    public String purchaseGame(@PathVariable UUID id, HttpSession session) {
+        UUID userId = (UUID) session.getAttribute("user_id");
+
+        if (userId == null) {
+            return "redirect:/login"; // Ако няма потребител в сесията, пренасочваме към логин
+        }
+
+        User user = userService.getById(userId);
+        Game game = gameService.getById(id);
+
+        gameService.purchaseGame(id, user);
+
+        return "redirect:/games/library";
+    }
+
     @GetMapping("/library")
     public ModelAndView getLibraryPage(HttpSession session) {
         UUID userId = (UUID) session.getAttribute("user_id");
@@ -99,13 +115,11 @@ public class GameController {
         return modelAndView;
     }
 
-    @PostMapping("/purchase/{id}")
-    public String purchaseGame(@PathVariable UUID id, HttpSession session) {
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+    @DeleteMapping("/delete/{id}")
+    public String deleteGame(@PathVariable UUID id) {
+        gameService.deleteById(id);
 
-        gameService.purchaseGame(id, user);
 
-        return "redirect:/library";
+        return "redirect:/store";
     }
 }

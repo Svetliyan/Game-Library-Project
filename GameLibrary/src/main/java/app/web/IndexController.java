@@ -10,7 +10,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -98,17 +100,5 @@ public class IndexController {
         session.invalidate();
 
         return "redirect:/index";
-    }
-
-    @GetMapping("/library")
-    public ModelAndView getLibraryPage(HttpSession session) {
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("library");
-        modelAndView.addObject("user", user);
-
-        return modelAndView;
     }
 }

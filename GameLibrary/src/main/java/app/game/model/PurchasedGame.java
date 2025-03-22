@@ -18,11 +18,9 @@ public class PurchasedGame {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
-    private String mainImg_url;
+    @ManyToOne
+    @JoinColumn(name = "game_id", nullable = false)
+    private Game game;  // Връзка към оригиналната игра
 
     @ManyToOne()
     private User owner;
