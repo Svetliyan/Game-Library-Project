@@ -41,7 +41,7 @@
                         <input type="hidden" name="_method" value="DELETE"/>
                         <button type="submit" class="DELETE">REMOVE</button>
                     </form>
-                    <form>
+                    <form th:action="@{/games/edit/{id}(id=${game.id})}" th:method="get">
                         <button class="EDIT">EDIT</button>
                     </form>
                 </div>

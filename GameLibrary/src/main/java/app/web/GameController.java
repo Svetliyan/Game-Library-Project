@@ -3,6 +3,7 @@ package app.web;
 import app.category.model.Category;
 import app.category.service.CategoryService;
 import app.game.model.Game;
+import app.game.repository.GameRepository;
 import app.game.service.GameService;
 import app.user.model.User;
 import app.user.service.UserService;
@@ -25,12 +26,14 @@ public class GameController {
     private final UserService userService;
     private final GameService gameService;
 
+    private final GameRepository gameRepository;
     private final CategoryService categoryService;
 
     @Autowired
-    public GameController(UserService userService, GameService gameService, CategoryService categoryService) {
+    public GameController(UserService userService, GameService gameService, GameRepository gameRepository, CategoryService categoryService) {
         this.userService = userService;
         this.gameService = gameService;
+        this.gameRepository = gameRepository;
         this.categoryService = categoryService;
     }
 
@@ -121,5 +124,67 @@ public class GameController {
 
 
         return "redirect:/store";
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView getEditGamePage(@PathVariable UUID id, HttpSession session) {
+        // Проверка дали потребителят е влезнал в системата
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
+
+        if (userId == null) {
+            ModelAndView modelAndView2 = new ModelAndView();
+            modelAndView2.setViewName("redirect:/login");
+            return modelAndView2;
+        }
+
+        // Извличане на играта по ID
+        Game game = gameService.getById(id);
+
+        // Проверка дали играта съществува и има категория
+        if (game == null) {
+            throw new RuntimeException("Game not found");
+        }
+
+        // Ако категорията е null, можеш да зададеш стойност по подразбиране или да направиш обработка
+        if (game.getCategory() == null) {
+            game.setCategory(new Category()); // Може да зададеш дефолтна категория, ако не съществува
+        }
+
+        // Попълваме `createGameRequest` със стойности от съществуващата игра
+        CreateGameRequest createGameRequest = new CreateGameRequest();
+        createGameRequest.setTitle(game.getTitle());
+        createGameRequest.setDescription(game.getDescription());
+        createGameRequest.setStorage(game.getStorage());
+        createGameRequest.setPrice(game.getPrice());
+        createGameRequest.setCoverImage_url(game.getCoverImg_url());
+        createGameRequest.setMainImg_url(game.getMainImg_url());
+        createGameRequest.setFirstImage_url(game.getFirstImage_url());
+        createGameRequest.setSecondImage_url(game.getSecondImage_url());
+        createGameRequest.setThirdImage_url(game.getThirdImage_url());
+        createGameRequest.setFourthImage_url(game.getFourthImage_url());
+        createGameRequest.setCategory_id(game.getCategory().getId());
+
+        // Извличане на всички категории
+        List<Category> categories = categoryService.getAllCategories();
+
+        // Подготовка на модела за Thymeleaf
+        ModelAndView modelAndView = new ModelAndView("edit-game");
+        modelAndView.addObject("game", game);
+        modelAndView.addObject("createGameRequest", createGameRequest);
+        modelAndView.addObject("categories", categories);
+
+        return modelAndView;
+    }
+
+    @PutMapping("/edit/{id}")
+    public String editGame(@PathVariable UUID id, @ModelAttribute("createGameRequest") @Valid CreateGameRequest createGameRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "edit-game"; // Ако има грешки, остани на страницата
+        }
+
+        gameService.updateGame(id, createGameRequest); // Тук се извършва редакцията
+
+        return "redirect:/games/library"; // Пренасочване след успешна редакция
     }
 }

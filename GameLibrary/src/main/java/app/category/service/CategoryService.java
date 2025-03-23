@@ -4,6 +4,7 @@ import app.category.model.Category;
 import app.category.repository.CategoryRepository;
 import app.user.model.User;
 import app.web.dto.CreateCategoryRequest;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,10 @@ public class CategoryService {
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    public Category getById(Integer categoryId) {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + categoryId));
     }
 }

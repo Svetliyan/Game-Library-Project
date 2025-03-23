@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Game</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/add-game.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+
+<head th:replace="fragments/commons::head"></head>
+
+<body>
+
+<header th:replace="fragments/commons::header"></header>
+
+<div class="container">
+    <form class="register-form" th:action="@{/games/edit/{id}(id=${game.id})}" th:method="post" th:object="${createGameRequest}">
+        <input type="hidden" name="_method" value="PUT"/>
+
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Edit Game</span></h1>
+
+        <div class="form-columns">
+
+            <div class="left-column">
+                <div class="form-group">
+                    <label for="name">Title</label>
+                    <input type="text" class="form-control" id="name" name="name" th:field="*{title}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select class="browser-default custom-select" id="category_id" name="category_id" th:field="*{category_id}">
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="storage">Storage (GB)</label>
+                    <input type="text" class="form-control" id="storage" name="storage" th:field="*{storage}"/> GB
+                </div>
+
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="coverImage_url">Cover Image (URL)</label>
+                    <input type="text" class="form-control" id="coverImage_url" name="coverImage_url" th:field="*{coverImage_url}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="mainImg_url">Main Image (URL)</label>
+                    <input type="text" class="form-control" id="mainImg_url" name="mainImg_url" th:field="*{mainImg_url}"/>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" th:field="*{description}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="firstImage_url">First Image (URL)</label>
+                    <input type="text" class="form-control" id="firstImage_url" name="firstImage_url" th:field="*{firstImage_url}"/>
+                </div>
+                <div class="form-group">
+                    <label for="secondImage_url">Second Image (URL)</label>
+                    <input type="text" class="form-control" id="secondImage_url" name="secondImage_url" th:field="*{secondImage_url}"/>
+                </div>
+                <div class="form-group">
+                    <label for="thirdImage_url">Third Image (URL)</label>
+                    <input type="text" class="form-control" id="thirdImage_url" name="thirdImage_url" th:field="*{thirdImage_url}"/>
+                </div>
+                <div class="form-group">
+                    <label for="fourthImage_url">Fourth Image (URL)</label>
+                    <input type="text" class="form-control" id="fourthImage_url" name="fourthImage_url" th:field="*{fourthImage_url}"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-info mb-3">SAVE CHANGES</button>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

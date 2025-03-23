@@ -97,4 +97,24 @@ public class GameService {
     public void deleteById(UUID id) {
         gameRepository.deleteById(id);
     }
+
+    public void updateGame(UUID gameId, CreateGameRequest createGameRequest) {
+        Game game = getById(gameId); // Взимаме съществуващата игра
+
+        game.setTitle(createGameRequest.getTitle());
+        game.setDescription(createGameRequest.getDescription());
+        game.setStorage(createGameRequest.getStorage());
+        game.setPrice(createGameRequest.getPrice());
+        game.setCoverImg_url(createGameRequest.getCoverImage_url());
+        game.setMainImg_url(createGameRequest.getMainImg_url());
+        game.setFirstImage_url(createGameRequest.getFirstImage_url());
+        game.setSecondImage_url(createGameRequest.getSecondImage_url());
+        game.setThirdImage_url(createGameRequest.getThirdImage_url());
+        game.setFourthImage_url(createGameRequest.getFourthImage_url());
+
+        Category category = categoryService.getById(createGameRequest.getCategory_id());
+        game.setCategory(category);
+
+        gameRepository.save(game);
+    }
 }
