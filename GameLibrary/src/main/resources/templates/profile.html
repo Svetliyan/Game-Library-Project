@@ -7,8 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/nav.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 <body>
+
 <header class="menu" th:replace="fragments/commons::header"></header>
 
 <div class="profile-container">
@@ -39,7 +48,7 @@
             <form th:action="@{/edit}" th:method="get">
                 <button class="EDIT">EDIT</button>
             </form>
-            <button class="message-button">Redeem GiftCard</button>
+            <button class="redeem-gift-card">Redeem GiftCard</button>
         </div>
     </div>
 </div>
