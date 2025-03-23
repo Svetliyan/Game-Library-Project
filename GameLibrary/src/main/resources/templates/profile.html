@@ -24,7 +24,7 @@
     <div class="profile-card">
         <div class="profile-header">
             <div class="profile-info">
-                <img th:src="${user.img_url}" alt="Profile Picture" class="profile-picture">
+                <img th:if="${user.img_url != null}" th:src="${user.img_url}" alt="Profile Picture" class="profile-picture">
             </div>
         </div>
 

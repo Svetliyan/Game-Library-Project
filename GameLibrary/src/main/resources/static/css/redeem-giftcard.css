@@ -115,10 +115,9 @@ textarea {
 button {
     background: linear-gradient(90deg, #06BFFF, #2D73FF);
     border: none;
-    padding: 14px 24px;
+    padding: 14px 80px;
     color: #ffffff;
     font-size: 18px;
-    font-weight: bold;
     text-align: center;
     cursor: pointer;
     border-radius: 8px;
