@@ -7,6 +7,7 @@ import app.game.model.PurchasedGame;
 import app.game.repository.GameRepository;
 import app.game.repository.PurchasedGameRepository;
 import app.user.model.User;
+import app.user.repository.UserRepository;
 import app.web.dto.CreateGameRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,15 @@ public class GameService {
     private final CategoryService categoryService;
     private final PurchasedGameRepository purchasedGameRepository;
 
+    private final UserRepository userRepository;
+
     @Autowired
     public GameService(GameRepository gameRepository, CategoryService categoryService,
-                       PurchasedGameRepository purchasedGameRepository) {
+                       PurchasedGameRepository purchasedGameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
         this.categoryService = categoryService;
         this.purchasedGameRepository = purchasedGameRepository;
+        this.userRepository = userRepository;
     }
 
     public void createGame(CreateGameRequest createGameRequest, User user) {
@@ -66,19 +70,27 @@ public class GameService {
 
         Game game = getById(gameId);
 
-        boolean isPurchased = user.getPurchasedGames()
-                .stream()
-                .anyMatch(pg -> pg.getGame().getId().equals(game.getId())); // Проверка по ID
-
-        if (isPurchased) {
-            return; // Вече притежава играта
+        if (isGamePurchased(gameId, user)){
+            throw new RuntimeException("You already have this game.");
         }
 
         PurchasedGame purchasedGame = new PurchasedGame();
         purchasedGame.setGame(game); // Свързваме с оригиналната игра
         purchasedGame.setOwner(user);
 
+        if (user.getBalance().compareTo(game.getPrice()) < 0) {
+            throw new RuntimeException("Not enough balance to buy this game.");
+        } else {
+            user.setBalance(user.getBalance().subtract(game.getPrice()));
+        }
+
         purchasedGameRepository.save(purchasedGame);
+    }
+
+    public boolean isGamePurchased(UUID gameId, User user) {
+        return user.getPurchasedGames()
+                .stream()
+                .anyMatch(pg -> pg.getGame().getId().equals(gameId));
     }
 
     public Boolean existsByTitle(String title) {

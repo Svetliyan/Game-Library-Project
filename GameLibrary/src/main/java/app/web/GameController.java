@@ -77,6 +77,9 @@ public class GameController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games");
 
+        boolean alreadyPurchased = gameService.isGamePurchased(id, user);
+        modelAndView.addObject("alreadyPurchased", alreadyPurchased);
+
         return modelAndView;
     }
 
