@@ -91,30 +91,39 @@ public class IndexController {
     }
 
     @GetMapping("/edit")
-    public ModelAndView getEditPage(HttpSession session) {
+    public ModelAndView getEditUserProfilePage(HttpSession session) {
         UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
 
         if (userId == null) {
-            ModelAndView modelAndView2 = new ModelAndView();
-            modelAndView2.setViewName("redirect:/login");
-            return modelAndView2;
+            return new ModelAndView("redirect:/login");
         }
 
-        ModelAndView modelAndView = new ModelAndView();
+        User user = userService.getById(userId);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        // Създаваме UserDetailsRequest и попълваме с текущите данни на потребителя
+        UserDetailsRequest userDetailsRequest = new UserDetailsRequest();
+        userDetailsRequest.setUsername(user.getUsername());
+        userDetailsRequest.setEmail(user.getEmail());
+        userDetailsRequest.setImg_url(user.getImg_url());
+        userDetailsRequest.setBalance(user.getBalance());
+
+        ModelAndView modelAndView = new ModelAndView("edit-profile");
+        modelAndView.addObject("userDetailsRequest", userDetailsRequest);
         modelAndView.addObject("user", user);
-        modelAndView.addObject("userDetailsRequest", new UserDetailsRequest());
-        modelAndView.setViewName("edit-profile");
 
         return modelAndView;
     }
+
 
     @PutMapping("/edit")
     public String edit(UserDetailsRequest userDetailsRequest, HttpSession session) {
         UUID userId = (UUID) session.getAttribute("user_id");
         userService.updateDetails(userId,userDetailsRequest);
 
-        return "redirect:/home";
+        return "redirect:/profile";
     }
 
     @GetMapping("/store")
