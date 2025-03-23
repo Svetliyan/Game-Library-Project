@@ -33,8 +33,8 @@ body {
     background-color: #fff;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
-    width: 400px;
-    height: 350px;
+    width: 600px;
+    height: 420px;
     overflow: hidden;
     transform: scale(1);
     transition: all 0.3s ease;
@@ -123,16 +123,6 @@ body {
     padding: 20px;
 }
 
-.EDIT,
-.redeem-gift-card {
-    padding: 12px 25px;
-    border: none;
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
 .redeem-gift-card {
     background-color: #3b82f6;
     color: white;
@@ -152,3 +142,69 @@ body {
     background-color: #d97706;
     transform: scale(1.1);
 }
+
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Разстояние между бутоните */
+    margin-top: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Разстояние между бутоните */
+    margin-top: 20px;
+}
+
+/* Подреждане на бутоните в 2 колони по 2 на ред */
+.footer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Две колони */
+    gap: 15px; /* Разстояние между бутоните */
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 400px; /* Опционално: за да не са твърде разтегнати */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer form {
+    display: flex;
+    justify-content: center;
+}
+
+.footer button {
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+    width: 12em;
+    height: 3em;
+    font-weight: 550;
+    text-align: center;
+}
+
+
+.add-category {
+    background-color: #4CAF50; /* Зелен цвят */
+}
+
+.add-category:hover {
+    background-color: #45a049; /* По-тъмен зелен при ховър */
+    transform: scale(1.1);
+}
+
+.add-game {
+    background: linear-gradient(45deg, #f44336, #ff5722);
+}
+
+.add-game:hover {
+    transform: scale(1.1);
+}
+
+
