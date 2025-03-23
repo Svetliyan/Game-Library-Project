@@ -4,6 +4,8 @@ import app.user.model.User;
 import app.user.repository.UserRepository;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
+import app.web.dto.UserDetailsRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -58,5 +60,27 @@ public class UserService {
 
     public User getById(UUID userId) {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User with this id [%s] does not exist.".formatted(userId)));
+    }
+
+    public void updateDetails(UUID id, UserDetailsRequest userDetailsRequest) {
+        User user = getById(id);
+
+        if(userDetailsRequest.getUsername() != null){
+            user.setUsername(userDetailsRequest.getUsername());
+        }
+
+        if(userDetailsRequest.getPassword() != null){
+            user.setPassword(userDetailsRequest.getPassword());
+        }
+
+        if(userDetailsRequest.getEmail() != null){
+            user.setEmail(userDetailsRequest.getEmail());
+        }
+
+        if(userDetailsRequest.getImg_url() != null){
+            user.setImg_url(userDetailsRequest.getImg_url());
+        }
+
+        userRepository.save(user);
     }
 }

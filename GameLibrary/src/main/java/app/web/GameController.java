@@ -176,15 +176,4 @@ public class GameController {
 
         return modelAndView;
     }
-
-    @PutMapping("/edit/{id}")
-    public String editGame(@PathVariable UUID id, @ModelAttribute("createGameRequest") @Valid CreateGameRequest createGameRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "edit-game"; // Ако има грешки, остани на страницата
-        }
-
-        gameService.updateGame(id, createGameRequest); // Тук се извършва редакцията
-
-        return "redirect:/games/library"; // Пренасочване след успешна редакция
-    }
 }

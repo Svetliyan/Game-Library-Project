@@ -1,0 +1,152 @@
+/* Reset and global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, main {
+    background: #0d1116;
+    margin-bottom: 5rem;
+    width: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0d1116;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+/* Profile Container */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Profile Card */
+.profile-card {
+    background-color: #fff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    background: linear-gradient(161deg, #285278e0 8.84%, #326957d4 86.04%);
+}
+
+.profile-card:hover {
+    transform: scale(1.05);
+}
+
+/* Profile Header */
+.profile-header {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+}
+
+.profile-info {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: white;
+    text-align: center;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border: 5px solid white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.profile-name {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.profile-role {
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+/* Profile Details */
+.profile-details {
+    padding: 20px;
+    color: #333;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    margin-top: -10px;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.detail-icon {
+    font-size: 18px;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.detail-text {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Footer buttons */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.follow-button,
+.message-button {
+    padding: 12px 25px;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.follow-button {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.follow-button:hover {
+    background-color: #2563eb;
+}
+
+.message-button {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.message-button:hover {
+    background-color: #d97706;
+}

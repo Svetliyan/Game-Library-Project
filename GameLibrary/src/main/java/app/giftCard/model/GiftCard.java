@@ -1,4 +1,4 @@
-package app.giftCard;
+package app.giftCard.model;
 
 import app.user.model.User;
 import jakarta.persistence.*;

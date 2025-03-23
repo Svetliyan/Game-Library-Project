@@ -23,13 +23,11 @@ import java.util.UUID;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final GameService gameService;
     private final UserService userService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService, GameService gameService, UserService userService) {
+    public CategoryController(CategoryService categoryService, UserService userService) {
         this.categoryService = categoryService;
-        this.gameService = gameService;
         this.userService = userService;
     }
 

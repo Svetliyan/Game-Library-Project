@@ -2,7 +2,7 @@ package app.user.model;
 
 import app.game.model.Game;
 import app.game.model.PurchasedGame;
-import app.giftCard.GiftCard;
+import app.giftCard.model.GiftCard;
 import jakarta.persistence.*;
 import lombok.*;
 

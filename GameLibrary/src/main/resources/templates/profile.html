@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+<header class="menu" th:replace="fragments/commons::header"></header>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-info">
+                <img th:src="${user.img_url}" alt="Profile Picture" class="profile-picture">
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <div class="detail-section">
+                <div class="detail-item">
+                    <span class="detail-icon">Username: </span>
+                    <span class="detail-text" th:text="${user.username}"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">Email: </span>
+                    <span class="detail-text" th:text="${user.email}"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">Balance: </span>
+                    <span class="detail-text" th:text="${user.balance}"> </span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <form th:action="@{/edit}" th:method="get">
+                <button class="EDIT">EDIT</button>
+            </form>
+            <button class="message-button">Redeem GiftCard</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

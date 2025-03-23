@@ -1,9 +1,10 @@
 package app.giftCard;
 
+import app.giftCard.model.GiftCard;
+import app.giftCard.repository.GiftCardRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.validation.BindingResult;
 
 import java.math.BigDecimal;
 import java.util.List;
