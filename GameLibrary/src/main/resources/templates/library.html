@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Library</title>
 
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/library.css">
@@ -43,6 +43,9 @@
                     </form>
                     <form th:action="@{/games/edit/{id}(id=${game.id})}" th:method="get">
                         <button class="EDIT">EDIT</button>
+                    </form>
+                    <form th:action="@{'/games/' + ${game.id}}" th:method="get">
+                        <button class="DETAILS">DETAILS</button>
                     </form>
                 </div>
             </div>
