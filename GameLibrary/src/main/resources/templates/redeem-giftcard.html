@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redeem Your GiftCard</title>
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/redeem-giftcard.css">
+<!--    <link rel="stylesheet" href="/css/nav.css">-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header th:replace="fragments/commons::header"></header>
+
+<form class="register-form">
+
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Redeem GiftCard</span></h1>
+
+    <div class="form-columns">
+
+        <!-- Лява колона -->
+        <div class="left-column">
+            <div class="form-group">
+                <label for="category_id">Choose GiftCard</label>
+                <select class="browser-default custom-select" id="category_id" name="category_id">
+                    <option th:each="giftCard : ${giftCards}"
+                            th:value="${giftCard.id}"
+                            th:text="${giftCard.name}"
+                            th:data-img="${giftCard.img_url}">
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-holder d-flex justify-content-center">
+        <button id="redeemButton" type="button" class="btn btn-info mb-3">REDEEM</button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const redeemButton = document.querySelector(".btn-info");
+        const giftCardSelect = document.getElementById("category_id");
+
+        redeemButton.addEventListener("click", function (event) {
+            event.preventDefault(); // Предотвратява презареждане на страницата
+
+            const selectedGiftCardId = giftCardSelect.value;
+            if (!selectedGiftCardId) {
+                alert("Please select a gift card.");
+                return;
+            }
+
+            fetch('/giftcards/redeem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ giftCardId: selectedGiftCardId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Gift card redeemed successfully! Your new balance: $" + data.newBalance);
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    });
+</script>
+
+
+</body>
+</html>

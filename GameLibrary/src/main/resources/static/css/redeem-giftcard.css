@@ -1,0 +1,138 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Body Styles */
+body {
+    background: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    padding: 20px;
+}
+
+/* Main Container */
+.container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Title */
+h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Badge Style */
+.badge {
+    color: #ffffff;
+    background: linear-gradient(90deg, #06BFFF, #2D73FF);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: "Permanent Marker", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 42px;
+}
+
+/* Columns */
+.left-column, .right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Form Group */
+.form-group {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+label {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Inputs & Selects */
+input, select, textarea {
+    width: 110%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #06BFFF;
+    outline: none;
+}
+
+/* Dropdown Styling */
+select {
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 150px;
+    resize: none;
+}
+
+/* Gift Card Image Display */
+.gift-card-preview {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.gift-card-preview:hover {
+    transform: scale(1.05);
+}
+
+/* Button Styles */
+button {
+    background: linear-gradient(90deg, #06BFFF, #2D73FF);
+    border: none;
+    padding: 14px 24px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #2D73FF, #06BFFF);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-columns {
+        flex-direction: column;
+    }
+}
