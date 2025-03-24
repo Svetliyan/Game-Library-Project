@@ -6,7 +6,9 @@
 }
 
 body {
-    background: #0d1116;
+    background: linear-gradient(135deg, #0d1116 0%, #1a2a3a 50%, #0d1116 100%);
+    background-size: cover;
+    background-attachment: fixed; /* Запазва фона статичен при скрол */
     display: flex;
     justify-content: center;
     align-items: center;
