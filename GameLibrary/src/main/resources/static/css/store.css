@@ -1,5 +1,6 @@
 body, main {
-    background: url(../img/store-background.png);
+    /*background: url(../images/store-background.png);*/
+    background: linear-gradient(135deg, #0d1116 0%, #1a2a3a 50%, #0d1116 100%);
     background-position: center;
     background-attachment: fixed;
     background-size: contain;
@@ -11,7 +12,7 @@ body, main {
     width: 100%;
     justify-content: center;
     height: 90vh; /* 50% of the viewport height */
-    background: url(../img/background-3.png) no-repeat center center/cover;
+    background: url(../images/background-3.png) no-repeat center center/cover;
 }
 
 h1 {

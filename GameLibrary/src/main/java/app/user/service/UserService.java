@@ -1,12 +1,18 @@
 package app.user.service;
 
+import app.security.AuthenticationDetails;
 import app.user.model.User;
+import app.user.model.UserRole;
 import app.user.repository.UserRepository;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import app.web.dto.UserDetailsRequest;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +21,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UserService {
+@Slf4j
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -37,25 +44,11 @@ public class UserService {
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .balance(BigDecimal.ZERO)
+                .role(UserRole.USER)
+                .isActive(true)
                 .build();
 
         userRepository.save(user);
-    }
-
-    public User loginUser(LoginRequest loginRequest) {
-
-        Optional<User> optionalUser = userRepository.findByUsername(loginRequest.getUsername());
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("User with this username does not exist.");
-        }
-
-        User user = optionalUser.get();
-
-        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
-            throw new RuntimeException("Incorrect password.");
-        }
-
-        return user;
     }
 
     public User getById(UUID userId) {
@@ -86,5 +79,12 @@ public class UserService {
 
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User with this username does not exist."));
+
+        return new AuthenticationDetails(user.getId(), username, user.getPassword(), user.getRole(), user.isActive());
     }
 }
