@@ -45,9 +45,6 @@ public class GiftCardController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("giftCards", giftCards); // Добавяме gift картите в ModelAndView
 
-        boolean isAuthenticated = authenticationDetails != null;
-        modelAndView.addObject("isAuthenticated", isAuthenticated);
-
         return modelAndView;
     }
 

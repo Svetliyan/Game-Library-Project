@@ -35,9 +35,6 @@ public class CategoryController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("createCategoryRequest", new CreateCategoryRequest());
 
-        boolean isAuthenticated = authenticationDetails != null;
-        modelAndView.addObject("isAuthenticated", isAuthenticated);
-
         return modelAndView;
     }
 

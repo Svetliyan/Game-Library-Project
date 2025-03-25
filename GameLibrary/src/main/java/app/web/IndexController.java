@@ -74,9 +74,6 @@ public class IndexController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("allSystemGames", allSystemGames);
 
-        boolean isAuthenticated = authenticationDetails != null;
-        modelAndView.addObject("isAuthenticated", isAuthenticated);
-
         return modelAndView;
     }
 }
