@@ -24,22 +24,21 @@
 
 <main>
 
-    <form class="welcome add-offer-form" th:method="POST" th:action="@{/giftcards}" th:object="${createGiftCardRequest}">
-
+    <form id="addGiftForm" class="welcome add-offer-form">
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add GiftCard</span></h1>
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">GiftCard Name</label>
             </div>
-            <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
+            <input type="text" id="name" name="name">
         </div>
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="name" class="h4 mb-2">GiftCard Value</label>
+                <label for="value" class="h4 mb-2">GiftCard Value</label>
             </div>
-            <input type="text" class="form-control" id="value" name="value" th:field="*{value}"/>
+            <input type="text" id="value" name="value">
         </div>
 
         <div class="button-holder d-flex justify-content-center">
@@ -47,5 +46,35 @@
         </div>
     </form>
 
+</main>
 </body>
+
+
+<script>
+    document.getElementById('addGiftForm').addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevents the default form submission
+
+        const giftCardData = {
+            name: document.getElementById('name').value,
+            value: document.getElementById('value').value
+        };
+
+        fetch('/api/giftcards/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(giftCardData)  // Sends the data in JSON format
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirectUrl;  // Redirect to profile page
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
 </html>

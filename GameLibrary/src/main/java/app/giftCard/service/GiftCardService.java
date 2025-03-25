@@ -25,9 +25,11 @@ public class GiftCardService {
     }
 
     public void createGiftCard(CreateGiftCardRequest createGiftCardRequest, User user) {
-
+        if (createGiftCardRequest.getName() == null || createGiftCardRequest.getValue() == null) {
+            throw new IllegalArgumentException("Gift card name or value cannot be null");
+        }
         if (existsByName(createGiftCardRequest.getName())) {
-            throw new IllegalStateException("Game with this title already exists");
+            throw new IllegalStateException("Gift card with this name already exists");
         }
 
         GiftCard giftCard = GiftCard.builder()

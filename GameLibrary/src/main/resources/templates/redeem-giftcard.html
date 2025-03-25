@@ -49,29 +49,35 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const redeemButton = document.querySelector(".btn-info");
+        console.log("Script loaded!");  // ✅ Проверка дали скриптът се зарежда
+
+        const redeemButton = document.getElementById("redeemButton");
         const giftCardSelect = document.getElementById("category_id");
 
         redeemButton.addEventListener("click", function (event) {
-            event.preventDefault(); // Предотвратява презареждане на страницата
+            event.preventDefault();
 
             const selectedGiftCardId = giftCardSelect.value;
+            console.log("Selected Gift Card ID:", selectedGiftCardId);  // ✅ Проверка дали взема ID
+
             if (!selectedGiftCardId) {
                 alert("Please select a gift card.");
                 return;
             }
 
-            fetch('/giftcards/redeem', {
+            fetch('/api/giftcards/redeem', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'same-origin', // Запазва сесията
                 body: JSON.stringify({ giftCardId: selectedGiftCardId })
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log("Server response:", data);
+
                     if (data.success) {
-                        alert("Gift card redeemed successfully! Your new balance: $" + data.newBalance);
+                        alert("Gift card redeemed! New balance: $" + data.newBalance);
+                        window.location.href = "/profile"; // ✅ Пренасочване към профила
                     } else {
                         alert("Error: " + data.message);
                     }
@@ -79,6 +85,7 @@
                 .catch(error => console.error("Error:", error));
         });
     });
+
 </script>
 
 </html>
