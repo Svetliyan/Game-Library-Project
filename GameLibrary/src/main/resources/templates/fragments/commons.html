@@ -9,10 +9,9 @@
 </head>
 <body>
 <header>
-    <a href="/" class="logo">CAO!</a>
+    <a href="#" class="logo">CAO!</a>
 
     <ul class="nav">
-        <li><a href="/">Home</a></li>
         <li th:if="${isAuthenticated}"><a th:href="@{/store}">Store</a></li>
         <li th:unless="${isAuthenticated}"><a th:href="@{/login}">Login</a></li>
         <li th:unless="${isAuthenticated}"><a th:href="@{/register}">Create Account</a></li>

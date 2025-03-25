@@ -29,10 +29,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public ModelAndView getHomePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        boolean isAuthenticated = authenticationDetails != null;
-
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("isAuthenticated", isAuthenticated);
 
         return modelAndView;
     }
