@@ -7,6 +7,7 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.CreateGiftCardRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class GiftCardWebController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddGiftCardPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         User user = userService.getById(authenticationDetails.getId());
 
