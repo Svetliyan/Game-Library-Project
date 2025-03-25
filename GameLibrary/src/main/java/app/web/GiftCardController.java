@@ -9,8 +9,10 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.CreateCategoryRequest;
 import app.web.dto.CreateGameRequest;
+import app.web.dto.CreateGiftCardRequest;
 import app.web.dto.RedeemGiftCardRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,5 +73,30 @@ public class GiftCardController {
         userService.save(user);
 
         return ResponseEntity.ok(Map.of("success", true, "newBalance", user.getBalance()));
+    }
+
+    @GetMapping("/add")
+    public ModelAndView getAddGamePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getId());
+
+        ModelAndView modelAndView = new ModelAndView("add-giftcard");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("createGiftCardRequest", new CreateGiftCardRequest());
+
+        return modelAndView;
+    }
+
+    @PostMapping
+    public String createNewGiftCard(@ModelAttribute("createGiftCardRequest") @Valid CreateGiftCardRequest createGiftCardRequest,
+                                BindingResult bindingResult,
+                                @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getId());
+
+        if (bindingResult.hasErrors()) {
+            return "add-giftcard";
+        }
+
+        giftCardService.createGiftCard(createGiftCardRequest, user);
+        return "redirect:/profile";
     }
 }

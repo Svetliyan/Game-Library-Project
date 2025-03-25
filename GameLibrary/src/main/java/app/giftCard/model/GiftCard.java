@@ -25,9 +25,6 @@ public class GiftCard {
     @Column(nullable = false)
     private BigDecimal value;
 
-    @Column(nullable = false)
-    private String img_url;
-
     @ManyToMany(mappedBy = "purchasedGiftCards")
     private List<User> buyers;
 }
