@@ -6,10 +6,9 @@
 }
 
 body {
-    background: #1b2838;
+    background: linear-gradient(135deg, #0d1116 0%, #1a2a3a 50%, #0d1116 100%);
     color: white;
     padding: 15em;
-    background: url(../images/store-background.png) repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;

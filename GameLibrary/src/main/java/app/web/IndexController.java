@@ -7,7 +7,6 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
-import app.web.dto.UserDetailsRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class IndexController {
@@ -30,8 +28,13 @@ public class IndexController {
     }
 
     @GetMapping("/index")
-    public String getHomePage() {
-        return "index";
+    public ModelAndView getHomePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        boolean isAuthenticated = authenticationDetails != null;
+
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
+        return modelAndView;
     }
 
     @GetMapping("/register")
@@ -70,6 +73,10 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("store");
         modelAndView.addObject("user", user);
         modelAndView.addObject("allSystemGames", allSystemGames);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 }

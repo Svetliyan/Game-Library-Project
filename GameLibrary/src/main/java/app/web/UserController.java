@@ -29,6 +29,10 @@ public class UserController {
         User user = userService.getById(authenticationDetails.getId());
         ModelAndView modelAndView = new ModelAndView("profile");
         modelAndView.addObject("user", user);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 
@@ -48,6 +52,10 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("edit-profile");
         modelAndView.addObject("userDetailsRequest", userDetailsRequest);
         modelAndView.addObject("user", user);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 

@@ -13,13 +13,14 @@
 
     <ul class="nav">
         <li><a href="/">Home</a></li>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/store}">Store</a></li>
-        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a></li>
-        <li sec:authorize="!isAuthenticated()"><a th:href="@{/register}">Create Account</a></li>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/games/library}">Library</a></li>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/profile}">Profile</a></li>
-        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+        <li th:if="${isAuthenticated}"><a th:href="@{/store}">Store</a></li>
+        <li th:unless="${isAuthenticated}"><a th:href="@{/login}">Login</a></li>
+        <li th:unless="${isAuthenticated}"><a th:href="@{/register}">Create Account</a></li>
+        <li th:if="${isAuthenticated}"><a th:href="@{/games/library}">Library</a></li>
+        <li th:if="${isAuthenticated}"><a th:href="@{/profile}">Profile</a></li>
+        <li th:if="${isAuthenticated}"><a th:href="@{/logout}">Logout</a></li>
     </ul>
+
 
 </header>
 </body>

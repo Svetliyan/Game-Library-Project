@@ -47,6 +47,10 @@ public class GameController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("createGameRequest", new CreateGameRequest());
         modelAndView.addObject("categories", categories);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 
@@ -74,6 +78,10 @@ public class GameController {
         boolean alreadyPurchased = gameService.isGamePurchased(id, user);
         modelAndView.addObject("game", game);
         modelAndView.addObject("alreadyPurchased", alreadyPurchased);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 
@@ -98,6 +106,10 @@ public class GameController {
         User user = userService.getById(authenticationDetails.getId());
         ModelAndView modelAndView = new ModelAndView("library");
         modelAndView.addObject("user", user);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 
@@ -145,6 +157,10 @@ public class GameController {
         modelAndView.addObject("game", game);
         modelAndView.addObject("createGameRequest", createGameRequest);
         modelAndView.addObject("categories", categories);
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
+
         return modelAndView;
     }
 }

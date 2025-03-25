@@ -4,6 +4,7 @@ import app.category.model.Category;
 import app.giftCard.GiftCardSeeder;
 import app.giftCard.model.GiftCard;
 import app.giftCard.service.GiftCardService;
+import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.CreateCategoryRequest;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,9 +35,8 @@ public class GiftCardController {
     }
 
     @GetMapping("/redeem")
-    public ModelAndView getRedeemPage(HttpSession session) {
-        UUID userId = (UUID) session.getAttribute("user_id");
-        User user = userService.getById(userId);
+    public ModelAndView getRedeemPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getId());
 
         List<GiftCard> giftCards = giftCardService.getAllGiftCards(); // Взимаме картите от базата
 
@@ -43,6 +44,9 @@ public class GiftCardController {
         modelAndView.setViewName("redeem-giftcard");
         modelAndView.addObject("user", user);
         modelAndView.addObject("giftCards", giftCards); // Добавяме gift картите в ModelAndView
+
+        boolean isAuthenticated = authenticationDetails != null;
+        modelAndView.addObject("isAuthenticated", isAuthenticated);
 
         return modelAndView;
     }
