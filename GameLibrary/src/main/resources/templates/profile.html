@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
+    <title th:text="${user.username } + ' - Profile'"></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/nav.css">
@@ -53,9 +53,6 @@
                 <button class="redeem-gift-card">Redeem GiftCard</button>
             </form>
 
-            <form th:action="@{/categories/add}">
-                <button class="add-category">Add Category</button>
-            </form>
 
             <form th:action="@{/games/add}">
                 <button class="add-game">Add Game</button>
@@ -63,6 +60,41 @@
         </div>
     </div>
 </div>
+
+    <div class="admin-profile-container" th:if="${user.role.name() == 'ADMIN'}">
+        <div class="admin-profile-card">
+            <div class="admin-profile-header">
+                <div class="admin-profile-info">
+                    <h1>Admin</h1>
+                </div>
+            </div>
+
+            <div class="admin-profile-details">
+                <div class="detail-section">
+                    <div class="detail-item">
+                </div>
+
+                <div class="admin-footer">
+                    <form th:action="@{/categories/add}">
+                        <button class="add-category">Add Category</button>
+                    </form>
+
+                    <form>
+                        <button class="users">Users</button>
+                    </form>
+
+                    <form>
+                        <button class="redeem-gift-card">Add GiftCard</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
 <script src="script.js"></script>
+
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import app.user.service.UserService;
 import app.web.dto.CreateCategoryRequest;
 import app.security.AuthenticationDetails;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ public class CategoryController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddCategoryPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         User user = userService.getById(authenticationDetails.getId());
 
@@ -39,6 +41,7 @@ public class CategoryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String createNewCategory(@Valid CreateCategoryRequest createCategoryRequest,
                                     BindingResult bindingResult,
                                     @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {

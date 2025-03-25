@@ -9,12 +9,14 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.CreateCategoryRequest;
 import app.web.dto.CreateGameRequest;
+import app.web.dto.RedeemGiftCardRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,12 +52,12 @@ public class GiftCardController {
 
     @PostMapping("/redeem")
     @ResponseBody
-    public ResponseEntity<?> redeemGiftCard(@RequestBody Map<String, String> request, HttpSession session) {
-        UUID userId = (UUID) session.getAttribute("user_id");
-        if (userId == null) {
+    public ResponseEntity<?> redeemGiftCard(@RequestBody Map<String, String> request, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        if (authenticationDetails == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("success", false, "message", "User not logged in"));
         }
 
+        UUID userId = authenticationDetails.getId();
         User user = userService.getById(userId);
         UUID giftCardId = UUID.fromString(request.get("giftCardId"));
 
@@ -70,7 +72,4 @@ public class GiftCardController {
 
         return ResponseEntity.ok(Map.of("success", true, "newBalance", user.getBalance()));
     }
-
-
-
 }

@@ -10,6 +10,7 @@ import app.user.service.UserService;
 import app.web.dto.CreateGameRequest;
 import app.security.AuthenticationDetails;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,9 +48,6 @@ public class GameController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("createGameRequest", new CreateGameRequest());
         modelAndView.addObject("categories", categories);
-
-        boolean isAuthenticated = authenticationDetails != null;
-        modelAndView.addObject("isAuthenticated", isAuthenticated);
 
         return modelAndView;
     }

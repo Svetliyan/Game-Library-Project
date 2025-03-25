@@ -16,29 +16,29 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        // authorizeHttpRequests - конфиг. за група от ендпойнти
-        // requestMatchers - достъп до даден ендпойнт
-        // .permitAll() - всеки може да достъпи този ендпойнт
-        // .anyRequest() - всички заявки, които не съм изброил
-        // .authenticated() - за да имаш достъп, трябва да си аутентикиран
         http
+                // Позволяване на достъп до статични ресурси и някои публични страници
                 .authorizeHttpRequests(matchers -> matchers
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/register").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/register").permitAll() // Пример за публични страници
+                        .anyRequest().authenticated() // Всички останали заявки изискват автентикация
                 )
+                // Настройка на форма за вход
                 .formLogin(form -> form
-                        .loginPage("/login")
-//                        .usernameParameter("username")
-//                        .passwordParameter("password")
-                        .defaultSuccessUrl("/store", true)
-                        .failureUrl("/login?error")
-                        .permitAll())
+                        .loginPage("/login") // Страница за вход
+                        .defaultSuccessUrl("/store", true) // Пренасочване след успешен вход
+                        .failureUrl("/login?error") // Пренасочване при неуспешен вход
+                        .permitAll() // Позволява достъп до страницата за вход
+                )
+                // Настройка на излизане от системата
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-                        .logoutSuccessUrl("/")
-                );
+                        .logoutSuccessUrl("/") // Пренасочване след излизане
+                )
+                // Защита на CSRF
+                .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
+
 }

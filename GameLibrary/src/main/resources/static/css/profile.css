@@ -123,7 +123,7 @@ body {
 }
 
 .redeem-gift-card {
-    background-color: #3b82f6;
+    background: linear-gradient(45deg, #2196f3, #1976d2);
     color: white;
 }
 
@@ -188,16 +188,6 @@ body {
     text-align: center;
 }
 
-
-.add-category {
-    background-color: #4CAF50; /* Зелен цвят */
-}
-
-.add-category:hover {
-    background-color: #45a049; /* По-тъмен зелен при ховър */
-    transform: scale(1.1);
-}
-
 .add-game {
     background: linear-gradient(45deg, #f44336, #ff5722);
 }
@@ -205,5 +195,120 @@ body {
 .add-game:hover {
     transform: scale(1.1);
 }
+
+/* Admin Profile Container */
+.admin-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.admin-profile-header h1 {
+    font-family: "Anton", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 50px;
+    color: white;
+}
+
+/* Admin Profile Card */
+.admin-profile-card {
+    border-radius: 20px;
+    width: 400px;
+    height: 420px;
+    overflow: hidden;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    background: linear-gradient(161deg, #573258d4 8.84%, #693257d4 86.04%);
+    color: white;
+}
+
+.admin-profile-card:hover {
+    transform: scale(1.05);
+}
+
+/* Admin Profile Header */
+.admin-profile-header {
+    position: relative;
+    height: 35%;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Admin Profile Details */
+.admin-profile-details {
+    padding: 20px;
+    color: #0d1116;
+    background-color: white;
+    border-radius: 20px;
+    height: 100vh;
+}
+
+/* Admin Footer Buttons */
+.admin-footer {
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 25%;
+    background-color: white;
+}
+
+.admin-footer button {
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+    width: 12em;
+    height: 3em;
+    font-weight: 550;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.admin-footer button:hover {
+    background-color: #e65c00;
+    transform: scale(1.1);
+}
+
+.add-category {
+    background: linear-gradient(45deg, #4CAF50, #2E7D32); /* Зелен градиент */
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    width: 12em;
+    height: 3em;
+    font-weight: 550;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-category:hover {
+    background: linear-gradient(45deg, #45a049, #1B5E20); /* По-тъмен зелен градиент */
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.users {
+    background: linear-gradient(45deg, #9b4dca, #6a1b9a); /* Лилав градиент */
+}
+
+.users:hover {
+    transform: scale(1.1);
+}
+
+
 
 
