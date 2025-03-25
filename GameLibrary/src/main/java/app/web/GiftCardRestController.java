@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +70,7 @@ public class GiftCardRestController {
 
     // Създаване на нова подаръчна карта
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createNewGiftCard(@RequestBody @Valid CreateGiftCardRequest createGiftCardRequest,
                                                BindingResult bindingResult,
                                                @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
