@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Setter
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
