@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class GiftCardRestController {
         this.giftCardService = giftCardService;
     }
 
-    // Връща всички карти (използва се за динамично зареждане с JavaScript)
+//     Връща всички карти (използва се за динамично зареждане с JavaScript)
     @GetMapping
     public ResponseEntity<List<GiftCard>> getAllGiftCards() {
         return ResponseEntity.ok(giftCardService.getAllGiftCards());
@@ -87,7 +88,6 @@ public class GiftCardRestController {
 
         return ResponseEntity.ok(Map.of("success", true, "redirectUrl", "/profile"));
     }
-
 }
 
 

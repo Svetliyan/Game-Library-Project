@@ -10,6 +10,8 @@ import app.web.dto.UserDetailsRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -86,5 +89,35 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User with this username does not exist."));
 
         return new AuthenticationDetails(user.getId(), username, user.getPassword(), user.getRole(), user.isActive());
+    }
+
+    @Cacheable("users")
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+    }
+
+
+    @CacheEvict(value = "users", allEntries = true)
+    public void switchStatus(UUID userId) {
+
+        User user = getById(userId);
+
+        user.setActive(!user.isActive());
+        userRepository.save(user);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    public void switchRole(UUID userId) {
+
+        User user = getById(userId);
+
+        if (user.getRole() == UserRole.USER) {
+            user.setRole(UserRole.ADMIN);
+        } else {
+            user.setRole(UserRole.USER);
+        }
+
+        userRepository.save(user);
     }
 }

@@ -73,4 +73,13 @@ public class IndexController {
 
         return modelAndView;
     }
+
+    @GetMapping("/library")
+    public ModelAndView getLibraryPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        User user = userService.getById(authenticationDetails.getId());
+
+        ModelAndView modelAndView = new ModelAndView("library");
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
 }

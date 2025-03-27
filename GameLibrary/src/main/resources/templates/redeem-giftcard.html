@@ -34,7 +34,7 @@
                 <select class="browser-default custom-select" id="category_id" name="category_id">
                     <option th:each="giftCard : ${giftCards}"
                             th:value="${giftCard.id}"
-                            th:text="${giftCard.name}"
+                            th:text="${giftCard.name}">
                     </option>
                 </select>
             </div>

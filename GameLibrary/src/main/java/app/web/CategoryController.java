@@ -54,13 +54,4 @@ public class CategoryController {
         categoryService.createCategory(createCategoryRequest, user);
         return "redirect:/index";
     }
-
-    @GetMapping("/library")
-    public ModelAndView getLibraryPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getId());
-
-        ModelAndView modelAndView = new ModelAndView("library");
-        modelAndView.addObject("user", user);
-        return modelAndView;
-    }
 }
