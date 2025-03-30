@@ -42,9 +42,18 @@
             <strong>Price: </strong><span th:text="${game.price}"></span><br>
         </div>
 
-        <form th:action="@{'/games/purchase/' + ${game.getId()}}" th:method="POST" class="purchase-section">
+        <form th:if="${user.id != game.owner.id}" th:action="@{'/games/purchase/' + ${game.getId()}}" th:method="POST" class="purchase-section">
             <button type="submit" class="purchase">Purchase</button>
         </form>
+
+        <form th:if="${user.id != game.owner.id}"
+              th:action="@{/wishlist/add/{userId}/{gameId}(userId=${user.id}, gameId=${game.id})}"
+              method="post"
+              class="purchase-section">
+            <input type="hidden" name="mainImgUrl" th:value="${game.mainImg_url}" />
+            <button type="submit" class="purchase">Add to your wishlist</button>
+        </form>
+
     </div>
 </div>
 

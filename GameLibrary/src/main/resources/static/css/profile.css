@@ -309,6 +309,23 @@ body {
     transform: scale(1.1);
 }
 
+.wishlist {
+    background: linear-gradient(45deg, #00BCD4, #00838F);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.wishlist:hover {
+    background-color: #00707a;
+    transform: scale(1.1);
+}
+
 
 
 

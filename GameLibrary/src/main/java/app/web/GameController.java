@@ -73,17 +73,20 @@ public class GameController {
         Game game = gameService.getById(id);
 
         ModelAndView modelAndView = new ModelAndView("games");
-        boolean alreadyPurchased = gameService.isGamePurchased(id, user);
+
+        modelAndView.addObject("user", user);
         modelAndView.addObject("game", game);
-        modelAndView.addObject("alreadyPurchased", alreadyPurchased);
+
         return modelAndView;
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getGameById(@PathVariable UUID id) {
+    public ModelAndView getGameById(@PathVariable UUID id, @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         Game game = gameService.getById(id);
+        User user = userService.getById(authenticationDetails.getId());
         ModelAndView modelAndView = new ModelAndView("games");
         modelAndView.addObject("game", game);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 

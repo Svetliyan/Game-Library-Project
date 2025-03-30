@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlist</title>
+
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/library.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header class="menu" th:replace="fragments/commons::header"></header>
+
+<div class="all-games">
+    <h1>Your Wishlist:</h1>
+    <div class="games-container">
+        <div class="game-card" th:each="item : ${wishlist}">
+            <a><img th:src="${item.mainImgUrl}" alt="Game Image"></a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

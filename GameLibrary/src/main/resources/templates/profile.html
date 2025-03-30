@@ -57,6 +57,12 @@
             <form th:action="@{/games/add}">
                 <button class="add-game">Add Game</button>
             </form>
+
+            <form method="GET" th:action="@{/wishlist}">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <button type="submit" class="wishlist">Wishlist</button>
+            </form>
+
         </div>
     </div>
 </div>
