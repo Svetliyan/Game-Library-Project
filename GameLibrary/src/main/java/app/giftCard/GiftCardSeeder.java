@@ -19,9 +19,9 @@ public class GiftCardSeeder {
     CommandLineRunner seedGiftCards(GiftCardRepository giftCardRepository) {
         return args -> {
             List<GiftCard> giftCardList = List.of(
-                    GiftCard.builder().name("Gift Card Bronze $10").value(BigDecimal.valueOf(10)).build(),
-                    GiftCard.builder().name("Gift Card Silver $20").value(BigDecimal.valueOf(20)).build(),
-                    GiftCard.builder().name("Gift Card Gold $50").value(BigDecimal.valueOf(50)).build()
+                    GiftCard.builder().name("Gift Card Bronze $10").value(BigDecimal.valueOf(10)).hardcoded(true).build(),
+                    GiftCard.builder().name("Gift Card Silver $20").value(BigDecimal.valueOf(20)).hardcoded(true).build(),
+                    GiftCard.builder().name("Gift Card Gold $50").value(BigDecimal.valueOf(50)).hardcoded(true).build()
             );
 
 

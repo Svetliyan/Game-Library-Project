@@ -26,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 // Настройка на форма за вход
                 .formLogin(form -> form
                         .loginPage("/login") // Страница за вход
-                        .defaultSuccessUrl("/store", true) // Пренасочване след успешен вход
+                        .defaultSuccessUrl("/profile", true) // Пренасочване след успешен вход
                         .failureUrl("/login?error") // Пренасочване при неуспешен вход
                         .permitAll() // Позволява достъп до страницата за вход
                 )

@@ -25,6 +25,9 @@ public class GiftCard {
     @Column(nullable = false)
     private BigDecimal value;
 
+    @Column(nullable = false)
+    private boolean hardcoded;
+
     @ManyToMany(mappedBy = "purchasedGiftCards")
     private List<User> buyers;
 }

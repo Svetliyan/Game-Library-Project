@@ -17,8 +17,8 @@ body {
 
 .container {
     display: flex;
-    max-width: 1000px;
-    height: 338px;
+    max-width: 1200px;
+    height: 400px;
     margin: auto;
     background: linear-gradient(161deg, #285278e0 8.84%, #326957d4 86.04%);
     border-radius: 1px;

@@ -9,6 +9,7 @@ import app.user.service.UserService;
 import app.web.dto.CreateGiftCardRequest;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -35,10 +36,22 @@ public class GiftCardService {
         GiftCard giftCard = GiftCard.builder()
                 .name(createGiftCardRequest.getName())
                 .value(createGiftCardRequest.getValue())
+                .hardcoded(false)
                 .build();
 
         giftCardRepository.save(giftCard);
     }
+
+    public void resetGiftCards() {
+        List<GiftCard> giftCards = giftCardRepository.findAll();
+
+        for (GiftCard giftCard : giftCards) {
+            if (!giftCard.isHardcoded()) {
+                giftCardRepository.delete(giftCard);  // Изтриваме конкретната карта
+            }
+        }
+    }
+
 
 
     public List<GiftCard> getAllGiftCards() {
