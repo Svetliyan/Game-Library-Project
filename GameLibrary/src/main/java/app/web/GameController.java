@@ -113,24 +113,12 @@ public class GameController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView getEditGamePage(@PathVariable UUID id,
-                                        @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getId());
-        if (user == null) {
-            return new ModelAndView("redirect:/login");
-        }
-
+    public ModelAndView getEditGamePage(@PathVariable UUID id) {
         Game game = gameService.getById(id);
         if (game == null) {
             throw new RuntimeException("Game not found");
         }
 
-        // Ако категорията е null, задаваме дефолтна категория
-        if (game.getCategory() == null) {
-            game.setCategory(new Category());
-        }
-
-        // Попълване на CreateGameRequest с текущите стойности от играта
         CreateGameRequest createGameRequest = new CreateGameRequest();
         createGameRequest.setTitle(game.getTitle());
         createGameRequest.setDescription(game.getDescription());
@@ -144,6 +132,7 @@ public class GameController {
         createGameRequest.setFourthImage_url(game.getFourthImage_url());
         createGameRequest.setCategory_id(game.getCategory().getId());
 
+        // Fetch all categories for the dropdown in the form
         List<Category> categories = categoryService.getAllCategories();
 
         ModelAndView modelAndView = new ModelAndView("edit-game");
@@ -153,4 +142,16 @@ public class GameController {
 
         return modelAndView;
     }
+
+    @PutMapping("/edit/{id}")
+    public String updateGame(@PathVariable UUID id, @ModelAttribute CreateGameRequest createGameRequest) {
+        try {
+            gameService.updateGame(id, createGameRequest);
+        } catch (Exception e) {
+            return "error-page";
+        }
+
+        return "redirect:/library";
+    }
+
 }

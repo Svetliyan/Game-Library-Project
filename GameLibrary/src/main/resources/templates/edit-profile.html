@@ -28,7 +28,7 @@
             <label for="username" class="h4 mb-2 text-white">Username</label>
         </div>
         <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required/>
-        <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="danger">Error message</small>
+        <small class="alert-warning" th:text="${takenUsernameException}"></small>
     </div>
 
     <div class="form-group">

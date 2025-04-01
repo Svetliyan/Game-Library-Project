@@ -17,8 +17,8 @@ body {
     background-repeat: no-repeat;
 }
 
-main {
-    text-align: center;
+.form {
+    width: 30em;
 }
 
 /* Заглавие */
@@ -36,7 +36,7 @@ span {
     font-style: normal;
     font-size: 50px;
     color: #ffffff;
-    padding: 10px 20px;
+    padding: 20px 30px;
     border-radius: 8px;
 }
 
@@ -46,9 +46,10 @@ span {
 }
 
 label {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
     text-align: left;
+    margin-top: 1em;
 }
 
 input {
@@ -59,11 +60,6 @@ input {
     border-radius: 5px;
     background: white;
     color: black;
-}
-
-small.danger {
-    color: red;
-    font-size: 15px;
 }
 
 /* Submit бутон */

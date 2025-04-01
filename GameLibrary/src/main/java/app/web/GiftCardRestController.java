@@ -33,13 +33,11 @@ public class GiftCardRestController {
         this.giftCardService = giftCardService;
     }
 
-//     Връща всички карти (използва се за динамично зареждане с JavaScript)
     @GetMapping
     public ResponseEntity<List<GiftCard>> getAllGiftCards() {
         return ResponseEntity.ok(giftCardService.getAllGiftCards());
     }
 
-    // Осребряване на карта (изпраща се AJAX заявка)
     @PostMapping("/redeem")
     public ResponseEntity<?> redeemGiftCard(@RequestBody RedeemGiftCardRequest request,
                                             @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
@@ -62,27 +60,17 @@ public class GiftCardRestController {
             return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Invalid gift card"));
         }
 
-        // Добавяне на стойността на картата към баланса на потребителя
         user.setBalance(user.getBalance().add(giftCard.getValue()));
         userService.save(user);
 
         return ResponseEntity.ok(Map.of("success", true, "newBalance", user.getBalance()));
     }
 
-    // Създаване на нова подаръчна карта
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createNewGiftCard(@RequestBody @Valid CreateGiftCardRequest createGiftCardRequest,
                                                BindingResult bindingResult,
                                                @AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        if (authenticationDetails == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("success", false, "message", "User not logged in"));
-        }
-
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Invalid data"));
-        }
-
         User user = userService.getById(authenticationDetails.getId());
         giftCardService.createGiftCard(createGiftCardRequest, user);
 

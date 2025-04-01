@@ -1,13 +1,14 @@
 package app.user.service;
 
+import app.exception.TakenUsernameException;
+import app.exception.UsernameAlreadyExistException;
+import app.exception.UsernameLengthException;
 import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.model.UserRole;
 import app.user.repository.UserRepository;
-import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import app.web.dto.UserDetailsRequest;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,11 +37,13 @@ public class UserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public void registerUser(RegisterRequest registerRequest) {
-        Optional<User> optionalUser = userRepository.findByUsernameOrEmail(registerRequest.getUsername(), registerRequest.getEmail());
+        Optional<User> optionUser = userRepository.findByUsername(registerRequest.getUsername());
 
-        if(optionalUser.isPresent()) {
-            throw new RuntimeException("This username or email already exists.");
+        if (optionUser.isPresent()) {
+            throw new UsernameAlreadyExistException("Username [%s] already exist.".formatted(registerRequest.getUsername()));
         }
 
         User user = User.builder()
@@ -62,11 +66,15 @@ public class UserService implements UserDetailsService {
         User user = getById(id);
 
         if(userDetailsRequest.getUsername() != null){
-            user.setUsername(userDetailsRequest.getUsername());
-        }
+            if (userRepository.existsByUsername(userDetailsRequest.getUsername())) {
+                throw new TakenUsernameException("Username already exists.");
+            }
 
-        if(userDetailsRequest.getPassword() != null){
-            user.setPassword(userDetailsRequest.getPassword());
+            if (userDetailsRequest.getUsername().length() < 3 || userDetailsRequest.getUsername().length() > 40) {
+                throw new UsernameLengthException("Username must be between 3 and 40 characters!");
+            }
+
+            user.setUsername(userDetailsRequest.getUsername());
         }
 
         if(userDetailsRequest.getEmail() != null){

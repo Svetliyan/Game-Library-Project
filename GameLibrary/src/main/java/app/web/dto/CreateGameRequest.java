@@ -24,36 +24,36 @@ public class CreateGameRequest {
     private String title;
 
     @NotNull
-    @Size(min = 50, max = 20000, message = "Description must be over 50 characters!")
+    @Size(min = 50, message = "Description must be between 50 and 255 characters!")
     private String description;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     private int storage;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     private BigDecimal price;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String coverImage_url;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String mainImg_url;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String firstImage_url;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String secondImage_url;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String thirdImage_url;
 
-    @NotNull
+    @NotNull(message = "Cannot be null")
     @URL
     private String fourthImage_url;
 

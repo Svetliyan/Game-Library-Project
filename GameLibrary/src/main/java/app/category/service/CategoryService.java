@@ -2,6 +2,7 @@ package app.category.service;
 
 import app.category.model.Category;
 import app.category.repository.CategoryRepository;
+import app.exception.CategoryAlreadyExistException;
 import app.user.model.User;
 import app.web.dto.CreateCategoryRequest;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,14 +24,13 @@ public class CategoryService {
     }
 
     public void createCategory(CreateCategoryRequest createCategoryRequest, User user) {
+        if (existsByName(createCategoryRequest.getName())) {
+            throw new CategoryAlreadyExistException("This category already exists!");
+        }
+
         Category category = Category.builder()
                 .name(createCategoryRequest.getName())
                 .build();
-
-        if (existsByName(createCategoryRequest.getName())) {
-            throw new IllegalStateException("Category with this name already exists");
-        }
-
         categoryRepository.save(category);
     }
 

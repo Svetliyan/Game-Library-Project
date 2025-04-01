@@ -32,13 +32,14 @@
                 <label for="name" class="h4 mb-2">GiftCard Name</label>
             </div>
             <input type="text" id="name" name="name">
+            <small class="alert-warning" th:text="${giftCardAlreadyExistMessage}"></small>
         </div>
 
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="value" class="h4 mb-2">GiftCard Value</label>
             </div>
-            <input type="text" id="value" name="value">
+            <input type="number" id="value" name="value">
         </div>
 
         <div class="button-holder d-flex justify-content-center">
@@ -64,12 +65,12 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(giftCardData)  // Sends the data in JSON format
+            body: JSON.stringify(giftCardData)
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = data.redirectUrl;  // Redirect to profile page
+                    window.location.href = data.redirectUrl;
                 } else {
                     alert("Error: " + data.message);
                 }

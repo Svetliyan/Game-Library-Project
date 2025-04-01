@@ -2,6 +2,7 @@ package app.game.service;
 
 import app.category.model.Category;
 import app.category.service.CategoryService;
+import app.exception.*;
 import app.game.model.Game;
 import app.game.model.PurchasedGame;
 import app.game.repository.GameRepository;
@@ -38,12 +39,8 @@ public class GameService {
     public void createGame(CreateGameRequest createGameRequest, User user) {
         Optional<Category> getCategory = categoryService.existsById(createGameRequest.getCategory_id());
 
-        if(getCategory.isEmpty()) {
-            throw new IllegalStateException("Category does not exist.");
-        }
-
         if (existsByTitle(createGameRequest.getTitle())) {
-            throw new IllegalStateException("Game with this title already exists");
+            throw new GameAlreadyExistException("This game already exists!");
         }
 
         Game game = Game.builder()
@@ -70,16 +67,12 @@ public class GameService {
 
         Game game = getById(gameId);
 
-        if (isGamePurchased(gameId, user)){
-            throw new RuntimeException("You already have this game.");
-        }
-
         PurchasedGame purchasedGame = new PurchasedGame();
         purchasedGame.setGame(game); // Свързваме с оригиналната игра
         purchasedGame.setOwner(user);
 
         if (user.getBalance().compareTo(game.getPrice()) < 0) {
-            throw new RuntimeException("Not enough balance to buy this game.");
+            throw new NotEnoughMoney("Not enough balance to buy this game.");
         } else {
             user.setBalance(user.getBalance().subtract(game.getPrice()));
         }
@@ -111,22 +104,58 @@ public class GameService {
     }
 
     public void updateGame(UUID gameId, CreateGameRequest createGameRequest) {
-        Game game = getById(gameId); // Взимаме съществуващата игра
+        Game game = getById(gameId);
 
-        game.setTitle(createGameRequest.getTitle());
-        game.setDescription(createGameRequest.getDescription());
-        game.setStorage(createGameRequest.getStorage());
-        game.setPrice(createGameRequest.getPrice());
-        game.setCoverImg_url(createGameRequest.getCoverImage_url());
-        game.setMainImg_url(createGameRequest.getMainImg_url());
-        game.setFirstImage_url(createGameRequest.getFirstImage_url());
-        game.setSecondImage_url(createGameRequest.getSecondImage_url());
-        game.setThirdImage_url(createGameRequest.getThirdImage_url());
-        game.setFourthImage_url(createGameRequest.getFourthImage_url());
+        if (createGameRequest.getTitle() != null) {
+            if (existsByTitle(createGameRequest.getTitle())) {
+                throw new TakenTitleException("This game already exists!");
+            }
 
-        Category category = categoryService.getById(createGameRequest.getCategory_id());
-        game.setCategory(category);
+            game.setTitle(createGameRequest.getTitle());
+        }
+
+        if (createGameRequest.getDescription() != null) {
+            game.setDescription(createGameRequest.getDescription());
+        }
+
+        if (createGameRequest.getStorage() != 0) {
+            game.setStorage(createGameRequest.getStorage());
+        }
+
+        if (createGameRequest.getPrice() != null) {
+            game.setPrice(createGameRequest.getPrice());
+        }
+
+        if (createGameRequest.getCoverImage_url() != null) {
+            game.setCoverImg_url(createGameRequest.getCoverImage_url());
+        }
+
+        if (createGameRequest.getMainImg_url() != null) {
+            game.setMainImg_url(createGameRequest.getMainImg_url());
+        }
+
+        if (createGameRequest.getFirstImage_url() != null) {
+            game.setFirstImage_url(createGameRequest.getFirstImage_url());
+        }
+
+        if (createGameRequest.getSecondImage_url() != null) {
+            game.setSecondImage_url(createGameRequest.getSecondImage_url());
+        }
+
+        if (createGameRequest.getThirdImage_url() != null) {
+            game.setThirdImage_url(createGameRequest.getThirdImage_url());
+        }
+
+        if (createGameRequest.getFourthImage_url() != null) {
+            game.setFourthImage_url(createGameRequest.getFourthImage_url());
+        }
+
+        if (createGameRequest.getCategory_id() != null) {
+            Category category = categoryService.getById(createGameRequest.getCategory_id());
+            game.setCategory(category);
+        }
 
         gameRepository.save(game);
     }
+
 }

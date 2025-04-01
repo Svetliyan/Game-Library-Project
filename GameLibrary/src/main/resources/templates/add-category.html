@@ -24,7 +24,7 @@
 
 <main>
 
-    <form class="welcome add-offer-form" th:method="POST" th:action="@{/categories}" th:object="${createCategoryRequest}">
+    <form class="form" th:method="POST" th:action="@{/categories}" th:object="${createCategoryRequest}">
 
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Category</span></h1>
 
@@ -34,6 +34,7 @@
             </div>
             <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
             <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="danger" style="font-size: 15px">Error Here</small>
+            <small class="alert-warning" th:text="${categoryAlreadyExistMessage}"></small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">

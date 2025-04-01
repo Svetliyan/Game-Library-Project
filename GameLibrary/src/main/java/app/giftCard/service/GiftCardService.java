@@ -1,7 +1,5 @@
 package app.giftCard.service;
 
-import app.game.model.Game;
-import app.game.model.PurchasedGame;
 import app.giftCard.model.GiftCard;
 import app.giftCard.repository.GiftCardRepository;
 import app.user.model.User;
@@ -9,8 +7,6 @@ import app.user.service.UserService;
 import app.web.dto.CreateGiftCardRequest;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +22,6 @@ public class GiftCardService {
     }
 
     public void createGiftCard(CreateGiftCardRequest createGiftCardRequest, User user) {
-        if (createGiftCardRequest.getName() == null || createGiftCardRequest.getValue() == null) {
-            throw new IllegalArgumentException("Gift card name or value cannot be null");
-        }
-        if (existsByName(createGiftCardRequest.getName())) {
-            throw new IllegalStateException("Gift card with this name already exists");
-        }
-
         GiftCard giftCard = GiftCard.builder()
                 .name(createGiftCardRequest.getName())
                 .value(createGiftCardRequest.getValue())

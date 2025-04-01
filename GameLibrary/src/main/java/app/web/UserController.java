@@ -5,10 +5,12 @@ import app.security.AuthenticationDetails;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.UserDetailsRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,8 +59,9 @@ public class UserController {
     }
 
     @PutMapping("/edit")
-    public String edit(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, UserDetailsRequest userDetailsRequest) {
+    public String edit(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, @Valid UserDetailsRequest userDetailsRequest, BindingResult bindingResult) {
         userService.updateDetails(authenticationDetails.getId(), userDetailsRequest);
+
         return "redirect:/profile";
     }
 

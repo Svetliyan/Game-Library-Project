@@ -23,7 +23,7 @@
 <header th:replace="fragments/commons::header"></header>
 
 <div class="container">
-    <form class="register-form" th:action="@{/games/edit/{id}(id=${game.id})}" th:method="post" th:object="${createGameRequest}">
+    <form class="register-form" th:action="@{/games/edit/{id}(id=${game.id})}" th:method="PUT" th:object="${createGameRequest}">
         <input type="hidden" name="_method" value="PUT"/>
 
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Edit Game</span></h1>
@@ -45,7 +45,7 @@
 
                 <div class="form-group">
                     <label for="storage">Storage (GB)</label>
-                    <input type="text" class="form-control" id="storage" name="storage" th:field="*{storage}"/> GB
+                    <input type="text" class="form-control" id="storage" name="storage" th:field="*{storage}"/>
                 </div>
 
                 <div class="form-group">
