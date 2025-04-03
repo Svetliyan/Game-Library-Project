@@ -94,6 +94,15 @@ public class ExceptionAdvice {
         return modelAndView;
     }
 
+    @ExceptionHandler(DomainException.class)
+    public ModelAndView handleDomainException(HttpServletRequest request, RedirectAttributes redirectAttributes, DomainException exception) {
+        String message = exception.getMessage();
+
+        ModelAndView modelAndView = new ModelAndView("internal-server-error");
+        modelAndView.addObject("domainException", message);
+
+        return modelAndView;
+    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({

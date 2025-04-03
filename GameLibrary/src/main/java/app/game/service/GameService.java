@@ -106,14 +106,12 @@ public class GameService {
     public void updateGame(UUID gameId, CreateGameRequest createGameRequest) {
         Game game = getById(gameId);
 
+        // Проверка за съществуващото заглавие (ако е подадено ново заглавие)
         if (createGameRequest.getTitle() != null) {
-            if (existsByTitle(createGameRequest.getTitle())) {
-                throw new TakenTitleException("This game already exists!");
-            }
-
             game.setTitle(createGameRequest.getTitle());
         }
 
+        // Обновяване на останалите полета, ако са подадени стойности
         if (createGameRequest.getDescription() != null) {
             game.setDescription(createGameRequest.getDescription());
         }
@@ -148,11 +146,6 @@ public class GameService {
 
         if (createGameRequest.getFourthImage_url() != null) {
             game.setFourthImage_url(createGameRequest.getFourthImage_url());
-        }
-
-        if (createGameRequest.getCategory_id() != null) {
-            Category category = categoryService.getById(createGameRequest.getCategory_id());
-            game.setCategory(category);
         }
 
         gameRepository.save(game);

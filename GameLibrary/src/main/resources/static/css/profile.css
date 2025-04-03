@@ -17,6 +17,26 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+}
+
+body, main {
+    background: linear-gradient(135deg, #0d1116, #1a2a3a, #003f5c, #830A2A);
+    background-size: 400% 400%;
+    animation: gradientAnimation 8s ease infinite;
+    width: 100%;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Profile Container */

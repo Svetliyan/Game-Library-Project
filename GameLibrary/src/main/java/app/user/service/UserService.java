@@ -1,5 +1,6 @@
 package app.user.service;
 
+import app.exception.DomainException;
 import app.exception.TakenUsernameException;
 import app.exception.UsernameAlreadyExistException;
 import app.exception.UsernameLengthException;
@@ -39,7 +40,7 @@ public class UserService implements UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
-    public void registerUser(RegisterRequest registerRequest) {
+    public User registerUser(RegisterRequest registerRequest) {
         Optional<User> optionUser = userRepository.findByUsername(registerRequest.getUsername());
 
         if (optionUser.isPresent()) {
@@ -56,10 +57,11 @@ public class UserService implements UserDetailsService {
                 .build();
 
         userRepository.save(user);
+        return user;
     }
 
     public User getById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User with this id [%s] does not exist.".formatted(userId)));
+        return userRepository.findById(userId).orElseThrow(() -> new DomainException("User with this id [%s] does not exist.".formatted(userId)));
     }
 
     public void updateDetails(UUID id, UserDetailsRequest userDetailsRequest) {
@@ -94,7 +96,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User with this username does not exist."));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new DomainException("User with this username does not exist."));
 
         return new AuthenticationDetails(user.getId(), username, user.getPassword(), user.getRole(), user.isActive());
     }

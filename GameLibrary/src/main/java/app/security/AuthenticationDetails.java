@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Data
 @Getter
 @AllArgsConstructor
-public class AuthenticationDetails implements UserDetails {
+public class AuthenticationDetails implements UserDetails, Principal {
 
     private UUID id;
     private String username;
@@ -28,6 +29,11 @@ public class AuthenticationDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.name());
         return List.of(authority);
+    }
+
+    @Override
+    public String getName() {
+        return this.getUsername(); // Или друг идентификатор
     }
 
     @Override

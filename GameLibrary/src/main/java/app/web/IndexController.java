@@ -27,7 +27,7 @@ public class IndexController {
         this.gameService = gameService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public ModelAndView getHomePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
         ModelAndView modelAndView = new ModelAndView("index");
 
@@ -42,12 +42,13 @@ public class IndexController {
     }
 
     @PostMapping("/register")
-    public String processRegisterRequest(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
+    public ModelAndView processRegisterRequest(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "register";
+            return new ModelAndView("register");
         }
         userService.registerUser(registerRequest);
-        return "redirect:/login";
+
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/login")
@@ -64,6 +65,10 @@ public class IndexController {
 
     @GetMapping("/store")
     public ModelAndView getStorePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        return getModelAndView(authenticationDetails, userService, gameService);
+    }
+
+    static ModelAndView getModelAndView(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, UserService userService, GameService gameService) {
         User user = userService.getById(authenticationDetails.getId());
         List<Game> allSystemGames = gameService.getAllGames();
 
@@ -71,15 +76,6 @@ public class IndexController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("allSystemGames", allSystemGames);
 
-        return modelAndView;
-    }
-
-    @GetMapping("/library")
-    public ModelAndView getLibraryPage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
-        User user = userService.getById(authenticationDetails.getId());
-
-        ModelAndView modelAndView = new ModelAndView("library");
-        modelAndView.addObject("user", user);
         return modelAndView;
     }
 }

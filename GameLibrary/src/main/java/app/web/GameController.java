@@ -26,17 +26,30 @@ public class GameController {
 
     private final UserService userService;
     private final GameService gameService;
-    private final GameRepository gameRepository;
     private final CategoryService categoryService;
 
     public GameController(UserService userService,
                           GameService gameService,
-                          GameRepository gameRepository,
                           CategoryService categoryService) {
         this.userService = userService;
         this.gameService = gameService;
-        this.gameRepository = gameRepository;
         this.categoryService = categoryService;
+    }
+
+    @GetMapping("/store")
+    public ModelAndView getStorePage(@AuthenticationPrincipal AuthenticationDetails authenticationDetails) {
+        return getModelAndView(authenticationDetails, userService, gameService);
+    }
+
+    static ModelAndView getModelAndView(@AuthenticationPrincipal AuthenticationDetails authenticationDetails, UserService userService, GameService gameService) {
+        User user = userService.getById(authenticationDetails.getId());
+        List<Game> allSystemGames = gameService.getAllGames();
+
+        ModelAndView modelAndView = new ModelAndView("store");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("allSystemGames", allSystemGames);
+
+        return modelAndView;
     }
 
     @GetMapping("/add")
@@ -115,9 +128,6 @@ public class GameController {
     @GetMapping("/edit/{id}")
     public ModelAndView getEditGamePage(@PathVariable UUID id) {
         Game game = gameService.getById(id);
-        if (game == null) {
-            throw new RuntimeException("Game not found");
-        }
 
         CreateGameRequest createGameRequest = new CreateGameRequest();
         createGameRequest.setTitle(game.getTitle());
@@ -148,10 +158,12 @@ public class GameController {
         try {
             gameService.updateGame(id, createGameRequest);
         } catch (Exception e) {
-            return "error-page";
+            // Ако възникне грешка, можеш да върнеш към същата страница или да покажеш грешка
+            return "internal-server-error"; // Пътека към страница с грешка
         }
 
-        return "redirect:/library";
+        // Ако всичко е наред, пренасочваме към магазина (store)
+        return "redirect:/store"; // Пренасочва към магазина
     }
 
 }

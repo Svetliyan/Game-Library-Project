@@ -34,9 +34,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                         .logoutSuccessUrl("/") // Пренасочване след излизане
-                )
-                // Защита на CSRF
-                .csrf(csrf -> csrf.disable());
+                );
 
         return http.build();
     }

@@ -38,7 +38,8 @@
         <div class="details">
             <strong>Genre: </strong><span th:text="${game.getCategory().name}"></span><br>
             <strong>Publisher: </strong><span th:text="${game.owner.username}"></span><br>
-            <strong>Released: </strong><span th:text="${game.createdOn}"></span><br>
+            <strong>Released: </strong><span th:text="${#temporals.format(game.createdOn, 'dd MMM yyyy')}"></span><br>
+            <strong>Storage: </strong><span th:text="${game.storage}"></span>GB<br>
             <strong>Price: </strong><span th:text="${game.price}"></span><br>
         </div>
 

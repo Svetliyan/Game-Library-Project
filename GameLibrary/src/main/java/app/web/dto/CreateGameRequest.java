@@ -4,20 +4,21 @@ import app.category.model.Category;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.URL;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class CreateGameRequest {
     @NotNull
     @Size(min = 5, max = 40, message = "Title length must be between 5 and 40 characters!")
@@ -66,4 +67,7 @@ public class CreateGameRequest {
     private List<Category> categories = new ArrayList<Category>();
 
     private boolean isVisible;
+
+    public CreateGameRequest(String newTitle, String newDescription, int i, BigDecimal bigDecimal, String image, String image1, String image2, String image3, String image4, String image5) {
+    }
 }
